@@ -26,8 +26,11 @@ ConnectionConfig apikeyConfig = {auth:{
 
  ConnectionConfig config = isOauth  ? oauthConfig : apikeyConfig;
 
+
+
+
 // Clinet instatilization
-final Client automationClient = check new Client(config,serviceUrl);
+final Client hubspotAutomation = check new Client(config,serviceUrl);
 
 
 // sample extension definition
@@ -90,7 +93,7 @@ PublicActionDefinitionEgg testingPublicActionDefinitionEgg = {
 @test:Config{groups: ["apikey"]}
 function testPost() returns error? {
     io:println("Testing extension creation (POST)");
-    PublicActionDefinition response = check automationClient->/automation/v4/actions/[appId].post(testingPublicActionDefinitionEgg);
+    PublicActionDefinition response = check hubspotAutomation->/automation/v4/actions/[appId].post(testingPublicActionDefinitionEgg);
 
     // Assert creation success and set the global ID
     test:assertTrue(response?.id is string, "Extension creation failed");
@@ -108,7 +111,7 @@ function testPost() returns error? {
     dependsOn: [testPost]
 }
  function testPostFunction() returns error? {
-    PublicActionFunctionIdentifier response = check automationClient->/automation/v4/actions/[appId]/[createdExtensionId]/functions/["POST_FETCH_OPTIONS"].put("exports.main = (event, callback) => {\r\n  callback({\r\n    \"options\": [{\r\n        \"label\": \"Big Widget\",\r\n        \"description\": \"Big Widget\",\r\n        \"value\": \"10\"\r\n      },\r\n      {\r\n        \"label\": \"Small Widget\",\r\n        \"description\": \"Small Widget\",\r\n        \"value\": \"1\"\r\n      }\r\n    ]\r\n  });\r\n}");
+    PublicActionFunctionIdentifier response = check hubspotAutomation->/automation/v4/actions/[appId]/[createdExtensionId]/functions/["POST_FETCH_OPTIONS"].put("exports.main = (event, callback) => {\r\n  callback({\r\n    \"options\": [{\r\n        \"label\": \"Big Widget\",\r\n        \"description\": \"Big Widget\",\r\n        \"value\": \"10\"\r\n      },\r\n      {\r\n        \"label\": \"Small Widget\",\r\n        \"description\": \"Small Widget\",\r\n        \"value\": \"1\"\r\n      }\r\n    ]\r\n  });\r\n}");
 }
 
 @test:Config {
@@ -117,7 +120,7 @@ function testPost() returns error? {
 }
 function testGetDefinitionById() returns error? {
     io:println("Requesting extension by ID (GET)");
-    PublicActionDefinition response = check automationClient->/automation/v4/actions/[appId]/[createdExtensionId];
+    PublicActionDefinition response = check hubspotAutomation->/automation/v4/actions/[appId]/[createdExtensionId];
 
     // Validate the retrieved extension's ID
     test:assertTrue(response?.id === createdExtensionId, "Extension retrieval failed");
@@ -135,7 +138,7 @@ function testGetDefinitionById() returns error? {
     groups: ["apikey"]}
  function testGetAllFunctions() returns error? {
     io:println("requesting get all functions");
-    CollectionResponsePublicActionFunctionIdentifierNoPaging response = check automationClient->/automation/v4/actions/[appId]/[createdExtensionId]/functions;
+    CollectionResponsePublicActionFunctionIdentifierNoPaging response = check hubspotAutomation->/automation/v4/actions/[appId]/[createdExtensionId]/functions;
     
     //validate the response
     test:assertTrue(response?.results.length() > 0, "No functions found for the extension");
@@ -152,7 +155,7 @@ function testGetDefinitionById() returns error? {
 @test:Config{groups: ["apikey"]}
  function testGetPagedExtensionDefinitions() returns error? {
     io:println("requesting get paged extension definitions");
-    CollectionResponsePublicActionDefinitionForwardPaging response = check automationClient->/automation/v4/actions/[appId];
+    CollectionResponsePublicActionDefinitionForwardPaging response = check hubspotAutomation->/automation/v4/actions/[appId];
     //validate the response
     test:assertTrue(response?.results.length() > 0, "No extension definitions found");
     // io:println(response);
@@ -171,7 +174,7 @@ function testGetDefinitionById() returns error? {
 } 
 function testGetAllRevisions() returns error? {
     io:println("requesting get all revisions");
-    CollectionResponsePublicActionRevisionForwardPaging response = check automationClient->/automation/v4/actions/[appId]/[createdExtensionId]/revisions;
+    CollectionResponsePublicActionRevisionForwardPaging response = check hubspotAutomation->/automation/v4/actions/[appId]/[createdExtensionId]/revisions;
     io:println(response);
 }
 
@@ -184,7 +187,7 @@ function testGetAllRevisions() returns error? {
     groups: ["apikey"]
 } function testGetRevision() returns error? {
     io:println("requesting get revision");
-    PublicActionRevision response = check automationClient->/automation/v4/actions/[appId]/[createdExtensionId]/revisions/["1"];
+    PublicActionRevision response = check hubspotAutomation->/automation/v4/actions/[appId]/[createdExtensionId]/revisions/["1"];
     io:println(response);
 }
 
@@ -198,7 +201,7 @@ function testGetAllRevisions() returns error? {
 }
  function testDelete() returns error? {
     io:println("requesting delete");
-    var response = check automationClient->/automation/v4/actions/[appId]/[createdExtensionId].delete();
+    var response = check hubspotAutomation->/automation/v4/actions/[appId]/[createdExtensionId].delete();
     io:println(response);
 }
 
@@ -213,7 +216,7 @@ function testGetAllRevisions() returns error? {
 }
  function testDeleteFunction() returns error? {
     io:println("requesting delete function");
-    PublicActionFunction response = check automationClient->/automation/v4/actions/[appId]/[createdExtensionId]/functions/["POST_ACTION_EXECUTION"];
+    PublicActionFunction response = check hubspotAutomation->/automation/v4/actions/[appId]/[createdExtensionId]/functions/["POST_ACTION_EXECUTION"];
     // validate response
     test:assertTrue(response?.functionType === "POST_ACTION_EXECUTION", "Function deletion failed");
 
@@ -239,7 +242,7 @@ function testRespondBatch() returns error? {
             }
         ]
     };
-    var response = check automationClient->/automation/v4/actions/callbacks/complete.post(batchCallbackCompletionRequest);
+    var response = check hubspotAutomation->/automation/v4/actions/callbacks/complete.post(batchCallbackCompletionRequest);
 }
 
 

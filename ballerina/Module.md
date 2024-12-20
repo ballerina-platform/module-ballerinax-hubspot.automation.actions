@@ -117,15 +117,13 @@ import ballerinax/hubspot.automation.actions;
 Create a `hubspot.automation.actions:ConnectionConfig` object with your domain and developer API token, and initialize the connector.
 
 ```ballerina
-hubspot.automation.actions:ConnectionConfig automationClient = {
+hubspot.automation.actions:ConnectionConfig config = {
    auth:{
-
     hapikey:"<developer-api-key>" ,
     private\-app\-legacy: ""
 }
 };
-
-hubspot.automation.actions:Client automationClient = check new (automationClient);
+hubspot.automation.actions:Client hubspotAutomation = check new (config);
 ```
 
 ### Step 3: Invoke the connector operation
