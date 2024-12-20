@@ -53,7 +53,7 @@ redirect_uri: The URL users will be redirected to after granting access.
 
 scope: A space-separated list of scopes your app is requesting.
 
-![Auth Tab example](/home/sajeenthiran/projects/module-ballerinax-hubspot.automation.actions/docs/setup/resources/auth.png)
+![Auth Tab example](docs/setup/resources/auth.png)
 
 
 ### Step   6: Add the redirect URL
@@ -104,7 +104,7 @@ If the command executes successfully , you will receive the access token from th
 
 ### Step 10 : Obtaining the developer API key .
 
-Follow the instructions at (https://developers.hubspot.com/docs/api/developer-tools-overview#developer-api-keys)to obtain the developer API key.
+Follow the instructions at (https://developers.hubspot.com/docs/api/developer-tools-overview#developer-api-keys) to obtain the developer API key.
 
 
 
