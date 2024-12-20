@@ -118,16 +118,16 @@ import ballerinax/hubspot.automation.actions;
 
 ### Step 2: Instantiate a new connector
 
-Create a `hubspot.automation.actions:ConnectionConfig` object with your domain and developer API token, and initialize the connector.
+Create a `actions:ConnectionConfig` object with your domain and developer API token, and initialize the connector.
 
 ```ballerina
-hubspot.automation.actions:ConnectionConfig config = {
+actions:ConnectionConfig config = {
    auth:{
     hapikey:"<developer-api-key>" ,
     private\-app\-legacy: ""
 }
 };
-hubspot.automation.actions:Client hubspotAutomation = check new (config);
+actions:Client hubspotAutomation = check new (config);
 ```
 
 ### Step 3: Invoke the connector operation
@@ -137,7 +137,7 @@ Utilize the connector's operations to manage extentions and functions.
 
 ```ballerina
 
-hubspot.automation.actions:FieldTypeDefinition typeDefinition = {
+actions:FieldTypeDefinition typeDefinition = {
     referencedObjectType: "OWNER",
     externalOptions: false,
     externalOptionsReferenceType: "",
@@ -148,7 +148,7 @@ hubspot.automation.actions:FieldTypeDefinition typeDefinition = {
     options: []
 };
 
-hubspot.automation.actions:InputFieldDefinition inputFieldDefinition = {
+actions:InputFieldDefinition inputFieldDefinition = {
     isRequired: true,
     automationFieldType: "",
     typeDefinition: typeDefinition,
@@ -157,12 +157,12 @@ hubspot.automation.actions:InputFieldDefinition inputFieldDefinition = {
 
 
 
-hubspot.automation.actions:PublicActionFunction publicActionFunction = {
+actions:PublicActionFunction publicActionFunction = {
     functionSource: "exports.main = (event, callback) => {\r\n  callback({\r\n    outputFields: {\r\n      myOutput: \"example output value\"\r\n    }\r\n  });\r\n}",
     functionType: "POST_ACTION_EXECUTION"
 };
 
-hubspot.automation.actions:PublicActionDefinitionEgg testingPublicActionDefinitionEgg = {
+actions:PublicActionDefinitionEgg testingPublicActionDefinitionEgg = {
     inputFields: [inputFieldDefinition],
     actionUrl: "https://webhook.site/94d09471-6f4c-4a7f-bae2-c9a585dd41e0",
     published: false,
@@ -187,14 +187,14 @@ hubspot.automation.actions:PublicActionDefinitionEgg testingPublicActionDefiniti
 
 
 
-hubspot.automation.actions: PublicActionDefinition response = check hubspotAutomation->/automation/v4/actions/[appId].post(testingPublicActionDefinitionEgg);
+actions: PublicActionDefinition response = check hubspotAutomation->/automation/v4/actions/[appId].post(testingPublicActionDefinitionEgg);
 ```
 
 #### List definitions
 
 ```ballerina
 
-hubspot.automation.actions : CollectionResponsePublicActionDefinitionForwardPaging response = check hubspotAutomation->/automation/v4/actions/[appId];
+actions : CollectionResponsePublicActionDefinitionForwardPaging response = check hubspotAutomation->/automation/v4/actions/[appId];
 
 ```
 

@@ -50,7 +50,7 @@ scope: A space-separated list of scopes your app is requesting.
 ### Step   6: Add the redirect URL
 Add your redirect url under the redirect urls.
 
-![Redirect URL ](../docs/setup/resources/redirect.png)
+![Redirect URL ](../docs/setup/resources/redirect_url.png)
 
 
 ### Step   7: Add the Required Scopes
@@ -58,7 +58,7 @@ Add your redirect url under the redirect urls.
 Go to the relevant API documentation (https://developers.hubspot.com/docs/reference/api/automation/custom-workflow-actions) and find out the required scopes.
 
 
-![Requied Scope doc](https://github.com/ParameswaranSajeenthiran/module-ballerinax-hubspot.automation.actions/blob/main/docs/setup/resources/scope_doc.png)
+![Requied Scope doc](../docs/setup/resources/scope_doc.png)
 
 
 
@@ -66,19 +66,24 @@ Now come back to the Auth Page and add the required scopes under the Auth tab .
 
 
 
-![Required Scopes](https://github.com/ParameswaranSajeenthiran/module-ballerinax-hubspot.automation.actions/blob/main/docs/setup/resources/scopes.png)
+![Required Scopes](../docs/setup/resources/scopes.png)
 
 Now save the app 
 
-![Save the app](https://github.com/ParameswaranSajeenthiran/module-ballerinax-hubspot.automation.actions/blob/main/docs/setup/resources/save.png)
+![Save the app](../docs/setup/resources/save.png)
 
 ### Step   8: Obtain the authorization code 
 
-Copy the App installation url and paste it in the web browser. It wll prompt you to install  the App and then select your deveper test account.
+Copy the App installation url and paste it in the web browser. 
+
+
+![Redirect URL ](../docs/setup/resources/redirect.png)
+
+It wll prompt you to install  the App and then select your deveper test account.
 
 After selcting the developertest account, you will receive a authorization code displalyed in the browser.
 
-![Obtain the authorization code](https://github.com/ParameswaranSajeenthiran/module-ballerinax-hubspot.automation.actions/blob/main/docs/setup/resources/authorization_code.png)
+![Obtain the authorization code](../docs/setup/resources/authorization_code.png)
 
 ### Step   9: Obtain the access token
 
@@ -114,16 +119,16 @@ import ballerinax/hubspot.automation.actions;
 
 ### Step 2: Instantiate a new connector
 
-Create a `hubspot.automation.actions:ConnectionConfig` object with your domain and developer API token, and initialize the connector.
+Create a `actions:ConnectionConfig` object with your domain and developer API token, and initialize the connector.
 
 ```ballerina
-hubspot.automation.actions:ConnectionConfig config = {
+actions:ConnectionConfig config = {
    auth:{
     hapikey:"<developer-api-key>" ,
     private\-app\-legacy: ""
 }
 };
-hubspot.automation.actions:Client hubspotAutomation = check new (config);
+actions:Client hubspotAutomation = check new (config);
 ```
 
 ### Step 3: Invoke the connector operation
@@ -133,7 +138,7 @@ Utilize the connector's operations to manage extentions and functions.
 
 ```ballerina
 
-hubspot.automation.actions:FieldTypeDefinition typeDefinition = {
+actions:FieldTypeDefinition typeDefinition = {
     referencedObjectType: "OWNER",
     externalOptions: false,
     externalOptionsReferenceType: "",
@@ -144,7 +149,7 @@ hubspot.automation.actions:FieldTypeDefinition typeDefinition = {
     options: []
 };
 
-hubspot.automation.actions:InputFieldDefinition inputFieldDefinition = {
+actions:InputFieldDefinition inputFieldDefinition = {
     isRequired: true,
     automationFieldType: "",
     typeDefinition: typeDefinition,
@@ -153,12 +158,12 @@ hubspot.automation.actions:InputFieldDefinition inputFieldDefinition = {
 
 
 
-hubspot.automation.actions:PublicActionFunction publicActionFunction = {
+actions:PublicActionFunction publicActionFunction = {
     functionSource: "exports.main = (event, callback) => {\r\n  callback({\r\n    outputFields: {\r\n      myOutput: \"example output value\"\r\n    }\r\n  });\r\n}",
     functionType: "POST_ACTION_EXECUTION"
 };
 
-hubspot.automation.actions:PublicActionDefinitionEgg testingPublicActionDefinitionEgg = {
+actions:PublicActionDefinitionEgg testingPublicActionDefinitionEgg = {
     inputFields: [inputFieldDefinition],
     actionUrl: "https://webhook.site/94d09471-6f4c-4a7f-bae2-c9a585dd41e0",
     published: false,
@@ -183,14 +188,14 @@ hubspot.automation.actions:PublicActionDefinitionEgg testingPublicActionDefiniti
 
 
 
-hubspot.automation.actions: PublicActionDefinition response = check hubspotAutomation->/automation/v4/actions/[appId].post(testingPublicActionDefinitionEgg);
+actions: PublicActionDefinition response = check hubspotAutomation->/automation/v4/actions/[appId].post(testingPublicActionDefinitionEgg);
 ```
 
 #### List definitions
 
 ```ballerina
 
-hubspot.automation.actions : CollectionResponsePublicActionDefinitionForwardPaging response = check hubspotAutomation->/automation/v4/actions/[appId];
+actions : CollectionResponsePublicActionDefinitionForwardPaging response = check hubspotAutomation->/automation/v4/actions/[appId];
 
 ```
 
@@ -198,7 +203,7 @@ hubspot.automation.actions : CollectionResponsePublicActionDefinitionForwardPagi
 
 The `Hubspot Automation API` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](../examples/), covering the following use cases:
 
-1. [Extension CRUD](examples) - Perform CRUD operations on Extensions
+1. [Extension CRUD](../examples/) - Perform CRUD operations on Extensions
 2. [Call complete callback APIs](../examples/) - complete callbacks using the  Hubspot API
 
 
