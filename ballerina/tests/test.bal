@@ -19,7 +19,7 @@ ConnectionConfig oauthConfig = {
  // API Key Config
 ConnectionConfig apikeyConfig = {auth:{
 
-    hapikey:"42c4fd68-72d9-49e7-8254-520f9acce400" ,
+    hapikey: apiKey, 
     private\-app\-legacy: ""
 }};
 
@@ -136,8 +136,9 @@ function testGetDefinitionById() returns error? {
  function testGetAllFunctions() returns error? {
     io:println("requesting get all functions");
     CollectionResponsePublicActionFunctionIdentifierNoPaging response = check automationClient->/automation/v4/actions/[appId]/[createdExtensionId]/functions;
+    
     //validate the response
-    // test:assertTrue(response?.results.length() > 0, "No functions found for the extension");
+    test:assertTrue(response?.results.length() > 0, "No functions found for the extension");
     io:println("All functions retrieved successfully");    
 
 

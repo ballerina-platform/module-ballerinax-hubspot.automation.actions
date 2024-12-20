@@ -3,14 +3,13 @@
 [HubSpot ](https://www.hubspot.com/) is an AI-powered customer platform with all the software, integrations, and resources you need to connect your marketing, sales, and customer service. HubSpot's connected platform enables you to grow your business faster by focusing on what matters most: your customers.
 
 
-[//]: # (TODO: Add overview mentioning the purpose of the module, supported REST API versions, and other high-level details.)
 
 
-The `hubspot.automation.actions` package offers APIs to connect and interact with [Hubpsot Automation action API](https://developers.hubspot.com/docs/reference/api/automation/custom-workflow-actions) endpoints.
+
+The `hubspot.automation.actions` package offers APIs to connect and interact with [Hubpsot Automation action API (v4)](https://developers.hubspot.com/docs/reference/api/automation/custom-workflow-actions) endpoints.
 
 ## Setup guide
 
-[//]: # (TODO: Add detailed steps to obtain credentials and configure the module.)
 To use the Hubpsot Automation action API connector in Ballerina, you must have a HubSpot developer account.
 
  ### Step 1: Create a Hubspot Developer Account
@@ -199,10 +198,10 @@ hubspot.automation.actions : CollectionResponsePublicActionDefinitionForwardPagi
 
 ## Examples
 
-The `Hubspot Automation API` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-zendesk/tree/main/examples/), covering the following use cases:
+The `Hubspot Automation API` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](examples), covering the following use cases:
 
-1. [Extension CRUD](https://github.com/ballerina-platform/module-ballerinax-zendesk/tree/main/examples/multi-channel-support-integration) - Perform CRUD operations on Extensions
-2. [Call complete callback APIs](https://github.com/ballerina-platform/module-ballerinax-zendesk/tree/main/examples/customer-satisfaction-survey-analysis) - complete callbacks using the  Hubspot API
+1. [Extension CRUD](examples) - Perform CRUD operations on Extensions
+2. [Call complete callback APIs](examples) - complete callbacks using the  Hubspot API
 
 
 
