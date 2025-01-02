@@ -1,12 +1,9 @@
 ## Overview
 
-[HubSpot ](https://www.hubspot.com/) is an AI-powered customer platform with all the software, integrations, and resources you need to connect your marketing, sales, and customer service. HubSpot's connected platform enables you to grow your business faster by focusing on what matters most: your customers.
+[HubSpot ](https://www.hubspot.com/) is an AI-powered customer relationship management (CRM) platform. 
 
+The `ballerinax/hubspot.automation.actions` offers APIs to connect and interact with the [Automation Actions](https://developers.hubspot.com/docs/reference/api/automation/custom-workflow-actions)  endpoints , specifically based on the [API v4 documention](https://developers.hubspot.com/docs/reference/api/automation/custom-workflow-actions) 
 
-
-
-
-The `hubspot.automation.actions` package offers APIs to connect and interact with [Hubpsot Automation action API (v4)](https://developers.hubspot.com/docs/reference/api/automation/custom-workflow-actions) endpoints.
 
 ## Setup guide
 
