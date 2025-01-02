@@ -18,28 +18,25 @@ The `hubspot.automation.actions` package offers APIs to connect and interact wit
 
 ## Setup guide
 
-To use the Hubpsot Automation action API connector in Ballerina, you must have a HubSpot developer account.
+To use the Hubspot Automation action API connector in Ballerina, you must have a HubSpot developer account.
 
  ### Step 1: Create a Hubspot Developer Account
 
 Visit the Hubspot portal (https://developers.hubspot.com/get-started) and create a Developer Account.
 
- ### Step 2: Create a Hubspot Developer Account
 
-Create a Developer Test Account at (https://developers.hubspot.com/beta-docs/getting-started/account-types#developer-test-accounts)
-
- ### Step 3: Create a Hubspot Develop Test Account
+ ### Step 2: Create a Hubspot Developer Test Account
 
 Visit (https://developers.hubspot.com/beta-docs/getting-started/account-types#developer-test-accounts)and create a hubspot developer test account
 
- ### Step 4: Create a Hubspot Public App
+ ### Step 3: Create a Hubspot Public App
 
 In your developer account, navigate to the "Apps" section.
 
 Click on "Create App" and provide the necessary details, including the app name and description.
 
 
- ### Step 5: Initiate the OAuth Flow
+ ### Step 4: Initiate the OAuth Flow
 
 Move to the auth tab in the created app and set the permissions there .
 
@@ -55,14 +52,14 @@ scope: A space-separated list of scopes your app is requesting.
 ![Auth Tab example](docs/setup/resources/auth.png)
 
 
-### Step   6: Add the redirect URL
+### Step   5: Add the redirect URL
 Add your redirect url under the redirect urls.
 
 
 ![alt text](docs/setup/resources/redirect_url.png)
 
 
-### Step   7: Add the Required Scopes
+### Step   6: Add the Required Scopes
 
 Go to the relevant API documentation (https://developers.hubspot.com/docs/reference/api/automation/custom-workflow-actions) and find out the required scopes.
 
@@ -81,7 +78,7 @@ Now save the app
 
 ![Save the app](docs/setup/resources/save.png)
 
-### Step   8: Obtain the authorization code 
+### Step   7: Obtain the authorization code 
 
 Copy the App installation url and paste it in the web browser.
 
@@ -97,10 +94,10 @@ After selcting the developertest account, you will receive a authorization code 
 
 ![Obtain the authorization code](docs/setup/resources/authorization_code.png)
 
-### Step   9: Obtain the access token
+### Step   8: Obtain the access token
 
 
-Place your auhtorization code, client_id and client_screct in the folowing comand and execute it in the terminal
+Place your authorization code, client_id and client_secret in the folowing comand and execute it in the terminal
 
 'curl --request POST \
   --url https://api.hubapi.com/oauth/v1/token \
@@ -110,7 +107,7 @@ Place your auhtorization code, client_id and client_screct in the folowing coman
 If the command executes successfully , you will receive the access token from the response.
 
 
-### Step 10 : Obtaining the developer API key .
+### Step   9: Obtaining the developer API key .
 
 Follow the instructions at (https://developers.hubspot.com/docs/api/developer-tools-overview#developer-api-keys) to obtain the developer API key.
 

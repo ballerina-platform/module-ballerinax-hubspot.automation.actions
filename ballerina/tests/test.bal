@@ -29,7 +29,7 @@ ConnectionConfig apikeyConfig = {auth:{
 
 
 
-// Clinet instatilization
+// Clinet initialization
 final Client hubspotAutomation = check new Client(config,serviceUrl);
 
 
