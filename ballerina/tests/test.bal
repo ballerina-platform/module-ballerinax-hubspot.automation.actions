@@ -6,6 +6,7 @@ configurable string serviceUrl = isLiveServer ? "https://api.hubapi.com" : "http
 configurable boolean isOauth=?;
 configurable string oauthKey=?;
 configurable string apiKey=?;
+
 int:Signed32 appId=5712614;
 
  // BearerTokenConfig
@@ -15,7 +16,6 @@ ConnectionConfig oauthConfig = {
         }
 };
 
-  
  // API Key Config
 ConnectionConfig apikeyConfig = {auth:{
 
@@ -23,18 +23,12 @@ ConnectionConfig apikeyConfig = {auth:{
     private\-app\-legacy: ""
 }};
 
+ConnectionConfig config = isOauth  ? oauthConfig : apikeyConfig;
 
- ConnectionConfig config = isOauth  ? oauthConfig : apikeyConfig;
-
-
-
-
-// Clinet initialization
+// Client initialization
 final Client hubspotAutomation = check new Client(config,serviceUrl);
 
-
-// sample extension definition
-
+// Sample Extension Definition
 string createdExtensionId = "";
 
 FieldTypeDefinition typeDefinition = {
@@ -85,7 +79,6 @@ PublicActionDefinitionEgg testingPublicActionDefinitionEgg = {
 };
 
 
-
 #create Extension definition
 # 
 # + return - error? if an error occurs, null otherwise
@@ -100,7 +93,6 @@ function testPost() returns error? {
     io:println("Extension created successfully with ID: ", response?.id);
     createdExtensionId = response.id;
 }
-
 
 # Insert a function for a definition
 # 
@@ -127,8 +119,6 @@ function testGetDefinitionById() returns error? {
     io:println("Extension retrieved successfully with ID: ", createdExtensionId);
 }
 
-
-
 # Get all functions for a given definition
 # 
 # + return - error? if an error occurs, null otherwise
@@ -147,7 +137,6 @@ function testGetDefinitionById() returns error? {
 
 }
 
-
 # Get paged extension definitions
 # 
 # + return - error? if an error occurs, null otherwise
@@ -160,9 +149,6 @@ function testGetDefinitionById() returns error? {
     test:assertTrue(response?.results.length() > 0, "No extension definitions found");
     // io:println(response);
 }
-
-
-
 
 # Get all revisions for a given definition
 # 
@@ -205,7 +191,6 @@ function testGetAllRevisions() returns error? {
     io:println(response);
 }
 
-
 # Delete a function for a definition
 # 
 # + return - error? if an error occurs, null otherwise
@@ -221,7 +206,6 @@ function testGetAllRevisions() returns error? {
     test:assertTrue(response?.functionType === "POST_ACTION_EXECUTION", "Function deletion failed");
 
 }
-
 
 # Completes a batch of callbacks
 # 

@@ -3,6 +3,7 @@
 The `ballerinax/hubspot.automation.actions` connector provides practical examples illustrating usage in various scenarios.
 
 1.[Extension Defintion CRUD](examples/extension-crud/main.bal)
+
 2.[Callback Completion](examples/callback-completion/main.bal)
 
 ## Prerequisites
