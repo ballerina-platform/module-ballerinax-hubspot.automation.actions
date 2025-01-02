@@ -1,8 +1,9 @@
 import ballerinax/hubspot.automation.actions;
 
 configurable string oauthKey=?;
+
 public function main() returns error? {
-     // BearerTokenConfig
+    // BearerTokenConfig
    actions:ConnectionConfig oauthConfig = {
         auth: {
             token:oauthKey
@@ -21,6 +22,6 @@ public function main() returns error? {
             }
         ]
     };
-    var response = check automationClient->/automation/v4/actions/callbacks/complete.post(batchCallbackCompletionRequest);
+    var response = check automationClient->/callbacks/complete.post(batchCallbackCompletionRequest);
     
 }

@@ -64,22 +64,22 @@ public function main() returns error? {
     };
 
     // Create Extension
-    actions:PublicActionDefinition response = check hubspotAutomation->/automation/v4/actions/[appId].post(testingPublicActionDefinitionEgg);
+    actions:PublicActionDefinition response = check hubspotAutomation->/[appId].post(testingPublicActionDefinitionEgg);
     createdExtensionId = response.id;
     io:print("Extension Created with ID: " + createdExtensionId+ "\n");
 
     // Get Extension
-    actions:PublicActionDefinition getResponse = check hubspotAutomation->/automation/v4/actions/[appId]/[createdExtensionId].get();
+    actions:PublicActionDefinition getResponse = check hubspotAutomation->/[appId]/[createdExtensionId].get();
     io:print("Extension Retrieved: " + getResponse.id + "\n");
 
     // Update Extension
-    actions:PublicActionDefinition updateResponse = check hubspotAutomation->/automation/v4/actions/[appId]/[createdExtensionId];
+    actions:PublicActionDefinition updateResponse = check hubspotAutomation->/[appId]/[createdExtensionId];
     io:print("Extension Updated: ");
     io:print(updateResponse);
     io:println("\n");
 
     // Delete Extension
-    var deleteResponse = check hubspotAutomation->/automation/v4/actions/[appId]/[createdExtensionId].delete();
+    var deleteResponse = check hubspotAutomation->/[appId]/[createdExtensionId].delete();
     io:println("Extension Deleted");
     
 }

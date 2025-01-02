@@ -36,6 +36,12 @@ public type PublicObjectRequestOptions record {
     string[] properties;
 };
 
+public type PublicSingleFieldDependency record {
+    "SINGLE_FIELD" dependencyType;
+    string controllingFieldName;
+    string[] dependentFieldNames;
+};
+
 public type PublicActionLabels record {
     record {|string...;|} inputFieldDescriptions?;
     string appDisplayName?;
@@ -48,24 +54,16 @@ public type PublicActionLabels record {
     string actionCardContent?;
 };
 
-public type PublicSingleFieldDependency record {
-    "SINGLE_FIELD" dependencyType;
-    string controllingFieldName;
-    string[] dependentFieldNames;
+public type ForwardPaging record {
+    NextPage next?;
 };
 
-# Represents the Queries record for the operation: get-/automation/v4/actions/{appId}_getPage
-public type GetAutomationV4ActionsAppid_getpageQueries record {
-    # Whether to return only results that have been archived.
-    boolean archived = false;
+# Represents the Queries record for the operation: get-/{appId}/{definitionId}/revisions_getPage
+public type GetAppidDefinitionidRevisions_getpageQueries record {
     # The maximum number of results to display per page.
     int:Signed32 'limit?;
     # The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
     string after?;
-};
-
-public type ForwardPaging record {
-    NextPage next?;
 };
 
 public type FieldTypeDefinition record {
@@ -82,15 +80,15 @@ public type FieldTypeDefinition record {
     boolean externalOptions;
 };
 
+public type CollectionResponsePublicActionFunctionIdentifierNoPaging record {
+    PublicActionFunctionIdentifier[] results;
+};
+
 public type InputFieldDefinition record {
     boolean isRequired;
     string automationFieldType?;
     FieldTypeDefinition typeDefinition;
     ("STATIC_VALUE"|"OBJECT_PROPERTY"|"FIELD_DATA"|"FETCHED_OBJECT_PROPERTY"|"ENROLLMENT_EVENT_PROPERTY")[] supportedValueTypes?;
-};
-
-public type CollectionResponsePublicActionFunctionIdentifierNoPaging record {
-    PublicActionFunctionIdentifier[] results;
 };
 
 # OAuth2 Refresh Token Grant Configs
@@ -152,12 +150,6 @@ public type PublicActionRevision record {
     string id;
 };
 
-# Represents the Queries record for the operation: get-/automation/v4/actions/{appId}/{definitionId}_getById
-public type GetAutomationV4ActionsAppidDefinitionid_getbyidQueries record {
-    # Whether to return only results that have been archived.
-    boolean archived = false;
-};
-
 public type CallbackCompletionRequest record {
     record {|string...;|} outputFields;
 };
@@ -188,6 +180,16 @@ public type ProxyConfig record {|
 public type CallbackCompletionBatchRequest record {
     record {|string...;|} outputFields;
     string callbackId;
+};
+
+# Represents the Queries record for the operation: get-/{appId}_getPage
+public type GetAppid_getpageQueries record {
+    # Whether to return only results that have been archived.
+    boolean archived = false;
+    # The maximum number of results to display per page.
+    int:Signed32 'limit?;
+    # The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
+    string after?;
 };
 
 public type PublicActionDefinitionEgg record {
@@ -240,16 +242,14 @@ public type Option record {
     string value;
 };
 
-# Represents the Queries record for the operation: get-/automation/v4/actions/{appId}/{definitionId}/revisions_getPage
-public type GetAutomationV4ActionsAppidDefinitionidRevisions_getpageQueries record {
-    # The maximum number of results to display per page.
-    int:Signed32 'limit?;
-    # The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
-    string after?;
-};
-
 public type OutputFieldDefinition record {
     FieldTypeDefinition typeDefinition;
+};
+
+# Represents the Queries record for the operation: get-/{appId}/{definitionId}_getById
+public type GetAppidDefinitionid_getbyidQueries record {
+    # Whether to return only results that have been archived.
+    boolean archived = false;
 };
 
 public type NextPage record {
@@ -262,4 +262,3 @@ public type ApiKeysConfig record {|
     string hapikey;
     string private\-app\-legacy;
 |};
-
