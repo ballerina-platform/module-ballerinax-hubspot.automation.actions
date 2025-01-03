@@ -56,15 +56,15 @@ PublicActionDefinitionEgg testingPublicActionDefinitionEgg = {
     functions: [publicActionFunction],
     labels: {
         "en": {
-            "inputFieldLabels": {
+            inputFieldLabels: {
                 "staticInput": "Static Input",
                 "objectInput": "Object Property Input",
                 "optionsInput": "External Options Input"
             },
-            "actionName": "My Extension",
-            "actionDescription": "My Extension Description",
-            "appDisplayName": "My App Display Name",
-            "actionCardContent": "My Action Card Content"
+            actionName: "My Extension",
+            actionDescription: "My Extension Description",
+            appDisplayName: "My App Display Name",
+            actionCardContent: "My Action Card Content"
         }
     }
 };
