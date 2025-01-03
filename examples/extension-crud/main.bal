@@ -1,5 +1,6 @@
 import ballerina/io;
 import ballerinax/hubspot.automation.actions;
+import ballerina/http;
 
 configurable string apiKey = ?;
 
@@ -81,7 +82,7 @@ public function main() returns error? {
     io:println(updateResponse);
 
     // Delete Extension
-    var deleteResponse = check hubspotAutomation->/[appId]/[createdExtensionId].delete();
+    http:Response deleteResponse = check hubspotAutomation->/[appId]/[createdExtensionId].delete();
     io:println("Extension Deleted");
 
 }
