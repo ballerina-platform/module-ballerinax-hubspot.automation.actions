@@ -1,4 +1,5 @@
 import ballerinax/hubspot.automation.actions;
+import ballerina/http;
 
 configurable string oauthKey = ?;
 
@@ -22,6 +23,6 @@ public function main() returns error? {
             }
         ]
     };
-    var response = check automationClient->/callbacks/complete.post(batchCallbackCompletionRequest);
+    http:Response response= check automationClient->/callbacks/complete.post(batchCallbackCompletionRequest);
 
 }
