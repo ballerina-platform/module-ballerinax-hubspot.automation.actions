@@ -1,22 +1,25 @@
-import ballerinax/hubspot.automation.actions;
 import ballerina/io;
-configurable string apiKey=?;
+import ballerinax/hubspot.automation.actions;
+
+configurable string apiKey = ?;
 
 public function main() returns error? {
 
     // Developer API Key Config
-    actions:ConnectionConfig apikeyConfig = {auth:{
+    actions:ConnectionConfig apikeyConfig = {
+        auth: {
 
-        hapikey: apiKey, 
-        private\-app\-legacy: ""
-    }};
+            hapikey: apiKey,
+            private\-app\-legacy: ""
+        }
+    };
 
     // Client initialization   
     final actions:Client hubspotAutomation = check new actions:Client(apikeyConfig);
 
     // sample extension definition
     string createdExtensionId = "";
-    int:Signed32 appId=5712614;
+    int:Signed32 appId = 5712614;
 
     actions:FieldTypeDefinition typeDefinition = {
         referencedObjectType: "OWNER",
@@ -46,19 +49,19 @@ public function main() returns error? {
         actionUrl: "https://webhook.site/94d09471-6f4c-4a7f-bae2-c9a585dd41e0",
         published: false,
         objectTypes: ["CONTACT"],
-        objectRequestOptions: { properties: ["email"] },
+        objectRequestOptions: {properties: ["email"]},
         functions: [publicActionFunction],
         labels: {
             "en": {
-                "inputFieldLabels": {
+                inputFieldLabels: {
                     "staticInput": "Static Input",
                     "objectInput": "Object Property Input",
                     "optionsInput": "External Options Input"
                 },
-                "actionName": "My Extension",
-                "actionDescription": "My Extension Description",
-                "appDisplayName": "My App Display Name",
-                "actionCardContent": "My Action Card Content"
+                actionName: "My Extension",
+                actionDescription: "My Extension Description",
+                appDisplayName: "My App Display Name",
+                actionCardContent: "My Action Card Content"
             }
         }
     };
@@ -66,20 +69,19 @@ public function main() returns error? {
     // Create Extension
     actions:PublicActionDefinition response = check hubspotAutomation->/[appId].post(testingPublicActionDefinitionEgg);
     createdExtensionId = response.id;
-    io:print("Extension Created with ID: " + createdExtensionId+ "\n");
+    io:println("Extension Created with ID: " + createdExtensionId);
 
     // Get Extension
     actions:PublicActionDefinition getResponse = check hubspotAutomation->/[appId]/[createdExtensionId].get();
-    io:print("Extension Retrieved: " + getResponse.id + "\n");
+    io:println("Extension Retrieved: " + getResponse.id);
 
     // Update Extension
     actions:PublicActionDefinition updateResponse = check hubspotAutomation->/[appId]/[createdExtensionId];
-    io:print("Extension Updated: ");
-    io:print(updateResponse);
-    io:println("\n");
+    io:println("Extension Updated: ");
+    io:println(updateResponse);
 
     // Delete Extension
     var deleteResponse = check hubspotAutomation->/[appId]/[createdExtensionId].delete();
     io:println("Extension Deleted");
-    
+
 }

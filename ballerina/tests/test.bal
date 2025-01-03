@@ -1,32 +1,25 @@
-import ballerina/io;
+import ballerina/http;
 import ballerina/test;
 
 configurable boolean isLiveServer = true;
 configurable string serviceUrl = isLiveServer ? "https://api.hubapi.com/automation/v4/actions" : "http://localhost:9090";
-configurable boolean isOauth=?;
-configurable string oauthKey=?;
-configurable string apiKey=?;
+configurable boolean isOauth = ?;
+configurable string oauthKey = ?;
+configurable string apiKey = ?;
 
-int:Signed32 appId=5712614;
+int:Signed32 appId = 5712614;
 
- // BearerTokenConfig
-ConnectionConfig oauthConfig = {
+// API Key Config
+ConnectionConfig apikeyConfig = {
     auth: {
-        token:oauthKey
-        }
+
+        hapikey: apiKey,
+        private\-app\-legacy: ""
+    }
 };
 
- // API Key Config
-ConnectionConfig apikeyConfig = {auth:{
-
-    hapikey: apiKey, 
-    private\-app\-legacy: ""
-}};
-
-ConnectionConfig config = isOauth  ? oauthConfig : apikeyConfig;
-
 // Client initialization
-final Client hubspotAutomation = check new Client(config,serviceUrl);
+final Client hubspotAutomation = check new Client(apikeyConfig, serviceUrl);
 
 // Sample Extension Definition
 string createdExtensionId = "";
@@ -49,8 +42,6 @@ InputFieldDefinition inputFieldDefinition = {
     supportedValueTypes: ["STATIC_VALUE"]
 };
 
-
-
 PublicActionFunction publicActionFunction = {
     functionSource: "exports.main = (event, callback) => {\r\n  callback({\r\n    outputFields: {\r\n      myOutput: \"example output value\"\r\n    }\r\n  });\r\n}",
     functionType: "POST_ACTION_EXECUTION"
@@ -61,7 +52,7 @@ PublicActionDefinitionEgg testingPublicActionDefinitionEgg = {
     actionUrl: "https://webhook.site/94d09471-6f4c-4a7f-bae2-c9a585dd41e0",
     published: false,
     objectTypes: ["CONTACT"],
-    objectRequestOptions: { properties: ["email"] },
+    objectRequestOptions: {properties: ["email"]},
     functions: [publicActionFunction],
     labels: {
         "en": {
@@ -78,32 +69,33 @@ PublicActionDefinitionEgg testingPublicActionDefinitionEgg = {
     }
 };
 
-
-#create Extension definition
-# 
+# create Extension definition
+#
 # + return - error? if an error occurs, null otherwise
 #
-@test:Config{groups: ["apikey"]}
+@test:Config {groups: ["apikey"]}
 function testPost() returns error? {
-    io:println("Testing extension creation (POST)");
     PublicActionDefinition response = check hubspotAutomation->/[appId].post(testingPublicActionDefinitionEgg);
 
     // Assert creation success and set the global ID
     test:assertTrue(response?.id is string, "Extension creation failed");
-    io:println("Extension created successfully with ID: ", response?.id);
+
     createdExtensionId = response.id;
 }
 
 # Insert a function for a definition
-# 
+#
 # + return - error? if an error occurs, null otherwise
-# 
-@test:Config{
+#
+@test:Config {
     groups: ["apikey"],
     dependsOn: [testPost]
 }
- function testPostFunction() returns error? {
+function testPostFunction() returns error? {
     PublicActionFunctionIdentifier response = check hubspotAutomation->/[appId]/[createdExtensionId]/functions/["POST_FETCH_OPTIONS"].put("exports.main = (event, callback) => {\r\n  callback({\r\n    \"options\": [{\r\n        \"label\": \"Big Widget\",\r\n        \"description\": \"Big Widget\",\r\n        \"value\": \"10\"\r\n      },\r\n      {\r\n        \"label\": \"Small Widget\",\r\n        \"description\": \"Small Widget\",\r\n        \"value\": \"1\"\r\n      }\r\n    ]\r\n  });\r\n}");
+
+    // assert function creation success
+    test:assertTrue(response?.functionType === "POST_FETCH_OPTIONS", "Function creation failed");
 }
 
 @test:Config {
@@ -111,127 +103,135 @@ function testPost() returns error? {
     groups: ["apikey"]
 }
 function testGetDefinitionById() returns error? {
-    io:println("Requesting extension by ID (GET)");
     PublicActionDefinition response = check hubspotAutomation->/[appId]/[createdExtensionId];
 
     // Validate the retrieved extension's ID
     test:assertTrue(response?.id === createdExtensionId, "Extension retrieval failed");
-    io:println("Extension retrieved successfully with ID: ", createdExtensionId);
 }
 
 # Get all functions for a given definition
-# 
+#
 # + return - error? if an error occurs, null otherwise
 
-@test:Config{
+@test:Config {
     dependsOn: [testPostFunction],
-    groups: ["apikey"]}
- function testGetAllFunctions() returns error? {
-    io:println("requesting get all functions");
+    groups: ["apikey"]
+}
+function testGetAllFunctions() returns error? {
     CollectionResponsePublicActionFunctionIdentifierNoPaging response = check hubspotAutomation->/[appId]/[createdExtensionId]/functions;
-    
+
     //validate the response
     test:assertTrue(response?.results.length() > 0, "No functions found for the extension");
-    io:println("All functions retrieved successfully");    
-
 
 }
 
 # Get paged extension definitions
-# 
+#
 # + return - error? if an error occurs, null otherwise
-# 
-@test:Config{groups: ["apikey"]}
- function testGetPagedExtensionDefinitions() returns error? {
-    io:println("requesting get paged extension definitions");
+#
+@test:Config {groups: ["apikey"]}
+function testGetPagedExtensionDefinitions() returns error? {
     CollectionResponsePublicActionDefinitionForwardPaging response = check hubspotAutomation->/[appId];
+
     //validate the response
     test:assertTrue(response?.results.length() > 0, "No extension definitions found");
-    // io:println(response);
 }
 
 # Get all revisions for a given definition
-# 
+#
 # + return - error? if an error occurs, null otherwise
-# 
+#
 @test:Config {
     dependsOn: [testPost],
     groups: ["apikey"]
-} 
+}
 function testGetAllRevisions() returns error? {
-    io:println("requesting get all revisions");
     CollectionResponsePublicActionRevisionForwardPaging response = check hubspotAutomation->/[appId]/[createdExtensionId]/revisions;
-    io:println(response);
+
+    // assert response
+    test:assertTrue(response?.results.length() > 0, "No revisions found for the extension");
+
 }
 
 # Get a revision for a given definition by revision ID
-# 
+#
 # + return - error? if an error occurs, null otherwise
-# 
+#
 @test:Config {
     dependsOn: [testPost],
     groups: ["apikey"]
-} function testGetRevision() returns error? {
-    io:println("requesting get revision");
+}
+function testGetRevision() returns error? {
     PublicActionRevision response = check hubspotAutomation->/[appId]/[createdExtensionId]/revisions/["1"];
-    io:println(response);
+
+    // assert response
+    test:assertTrue(response?.revisionId === "1", "Revision retrieval failed");
+
 }
 
 # Archive an extension definition
-# 
+#
 # + return - error? if an error occurs, null otherwise
-# 
+#
 @test:Config {
-    dependsOn: [testPost,testDeleteFunction],
+    dependsOn: [testPost, testDeleteFunction],
     groups: ["apikey"]
 }
- function testDelete() returns error? {
-    io:println("requesting delete");
-    var response = check hubspotAutomation->/[appId]/[createdExtensionId].delete();
-    io:println(response);
+function testDelete() returns error? {
+
+    http:Response response = check hubspotAutomation->/[appId]/[createdExtensionId].delete();
+
+    // assert response
+    test:assertTrue(response.statusCode == 204, "Extension deletion failed");
+
 }
 
 # Delete a function for a definition
-# 
+#
 # + return - error? if an error occurs, null otherwise
-# 
+#
 @test:Config {
     dependsOn: [testPost],
     groups: ["apikey"]
 }
- function testDeleteFunction() returns error? {
-    io:println("requesting delete function");
+function testDeleteFunction() returns error? {
     PublicActionFunction response = check hubspotAutomation->/[appId]/[createdExtensionId]/functions/["POST_ACTION_EXECUTION"];
+
     // validate response
     test:assertTrue(response?.functionType === "POST_ACTION_EXECUTION", "Function deletion failed");
 
 }
 
 # Completes a batch of callbacks
-# 
+#
 # + return - error? if an error occurs, null otherwise
-# 
-@test:Config{
+#
+@test:Config {
     groups: ["oauth"]
 }
 function testRespondBatch() returns error? {
-    io:println("requesting respond batch");
+
+    // BearerTokenConfig
+    ConnectionConfig oauthConfig = {
+        auth: {
+            token: oauthKey
+        }
+    };
+
+    final Client hubspotAutomationOauth = check new Client(oauthConfig, serviceUrl);
+
     BatchInputCallbackCompletionBatchRequest batchCallbackCompletionRequest = {
         inputs: [
             {
                 callbackId: "1",
                 outputFields: {
-                     "exampleField": "exampleValue"
+                    "exampleField": "exampleValue"
                 }
             }
         ]
     };
-    var response = check hubspotAutomation->/callbacks/complete.post(batchCallbackCompletionRequest);
+    http:Response response = check hubspotAutomationOauth->/callbacks/complete.post(batchCallbackCompletionRequest);
+
+    // assert response
+    test:assertTrue(response.statusCode == 204, "Batch completion failed");
 }
-
-
-
-
-
-
-

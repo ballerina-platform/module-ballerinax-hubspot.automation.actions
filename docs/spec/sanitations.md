@@ -13,12 +13,12 @@ These changes are done in order to improve the overall usability, and as workaro
 1. **Change the `url` property of the `servers` object**:
    - **Original**: `https://api.hubapi.com`
    - **Updated**: `https://api.hubapi.com/automation/v4/actions`
-   - **Reason**: This change is made to ensure that all API paths are relative to the versioned base URL (`/4`), which improves the consistency and usability of the APIs.
+   - **Reason**: This change is made to ensure that all API paths are relative to the URL (`/automation/v4/actions`), which improves the consistency and usability of the APIs.
 
 
 2. **Update API Paths**:
-   - **Original**: Paths included the version prefix in each endpoint (e.g., `/2/compliance/jobs`).
-   - **Updated**: Paths are modified to remove the version prefix from the endpoints, as it is now included in the base URL. For example:
+   - **Original**: Paths shared a common segment across all resource endpoints.
+   - **Updated**:  Common paths segment is removed from the resource endpoints, as it is now included in the base URL. For example:
      - **Original**: `/automation/v4/actions`
      - **Updated**: `/`
    - **Reason**: This modification simplifies the API paths, making them shorter and more readable. It also centralizes the versioning to the base URL, which is a common best practice.
