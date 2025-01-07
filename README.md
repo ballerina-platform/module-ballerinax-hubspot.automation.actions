@@ -174,9 +174,6 @@ actions:PublicActionDefinitionEgg testingPublicActionDefinitionEgg = {
     }
 };
 
-
-
-
 actions: PublicActionDefinition response = check hubspotAutomation->/automation/v4/actions/[appId].post(testingPublicActionDefinitionEgg);
 ```
 
