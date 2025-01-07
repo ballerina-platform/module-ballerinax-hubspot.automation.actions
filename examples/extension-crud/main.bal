@@ -15,8 +15,8 @@
 // under the License.
 
 import ballerina/io;
-import ballerinax/hubspot.automation.actions;
 import ballerina/http;
+import ballerinax/hubspot.automation.actions;
 
 configurable string apiKey = ?;
 

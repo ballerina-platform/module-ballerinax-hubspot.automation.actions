@@ -14,8 +14,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerinax/hubspot.automation.actions;
 import ballerina/http;
+import ballerinax/hubspot.automation.actions;
 
 configurable string oauthKey = ?;
 
