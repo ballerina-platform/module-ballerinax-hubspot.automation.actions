@@ -1,6 +1,6 @@
 
 [package]
-org = "sajeenthiran"
+org = "wso2"
 name = "callback_completion"
 version = "0.1.0"
 
