@@ -29,7 +29,6 @@ Visit (https://developers.hubspot.com/beta-docs/getting-started/account-types#de
 In your developer account, navigate to the "Apps" section.
 
 Click on "Create App" and provide the necessary details, including the app name and description.
-
 ### Step 4: Initiate the OAuth Flow
 
 Move to the auth tab in the created app and set the permissions there.
