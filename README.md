@@ -51,7 +51,6 @@ Add your redirect url under the redirect urls.
 ### Step   6: Add the Required Scopes
 
 Go to the relevant API documentation (https://developers.hubspot.com/docs/reference/api/automation/custom-workflow-actions) and find out the required scopes.
-
 For Automation Actions, we require the 'automation' scope.
 
 ![Required Scope doc](../docs/setup/resources/scope_doc.png)
