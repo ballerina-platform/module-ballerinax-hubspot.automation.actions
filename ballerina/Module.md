@@ -33,7 +33,7 @@ Under the OAuth tab you can find the following details,
 * `redirect_uri`: The URL users will be redirected to after granting access.
 * `scope`: A space-separated list of scopes your app is requesting.
 
-![Auth Tab example](docs/setup/resources/auth.png)
+![Auth Tab example](../docs/setup/resources/auth.png)
 
 ### Step   5: Add the redirect URL
 
@@ -47,7 +47,7 @@ Go to the relevant API documentation (https://developers.hubspot.com/docs/refere
 
 For Automation Actions, we require the 'automation' scope.
 
-![Required Scope doc](docs/setup/resources/scope_doc.png)
+![Required Scope doc](../docs/setup/resources/scope_doc.png)
 
 Go back to the Auth Page and add the required scopes under the Auth tab .
 
