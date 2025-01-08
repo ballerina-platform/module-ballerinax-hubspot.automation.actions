@@ -39,7 +39,7 @@ Under the OAuth tab you can find the following details,
 
 Add your redirect url under the redirect urls.
 
-![add the redirect url](docs/setup/resources/redirect_url.png)
+![add the redirect url](../docs/setup/resources/redirect_url.png)
 
 ### Step   6: Add the Required Scopes
 
@@ -51,23 +51,23 @@ For Automation Actions, we require the 'automation' scope.
 
 Go back to the Auth Page and add the required scopes under the Auth tab .
 
-![Required Scopes](docs/setup/resources/scopes.png)
+![Required Scopes](../docs/setup/resources/scopes.png)
 
 Save the app
 
-![Save the app](docs/setup/resources/save.png)
+![Save the app](../docs/setup/resources/save.png)
 
 ### Step   7: Obtain the authorization code
 
 Copy the App installation url and paste it in the web browser.
 
-![Redirect URL ](docs/setup/resources/redirect.png)
+![Redirect URL ](../docs/setup/resources/redirect.png)
 
  It wll prompt you to install  the App and then select your deveper test account.
 
 After selecting the developer test account, you will receive a authorization code displayed in the browser.
 
-![Obtain the authorization code](docs/setup/resources/authorization_code.png)
+![Obtain the authorization code](../docs/setup/resources/authorization_code.png)
 
 ### Step   8: Obtain the access token
 
