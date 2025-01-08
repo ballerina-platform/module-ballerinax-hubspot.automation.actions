@@ -10,11 +10,11 @@ To use the Hubspot Automation action API connector in Ballerina, you must have a
 
 ### Step 1: Create a Hubspot Developer Account
 
-Visit the Hubspot portal (https://developers.hubspot.com/get-started) and create a Developer Account.
+Visit the [Hubspot portal](https://developers.hubspot.com/get-started) and create a Developer Account.
 
 ### Step 2: Create a Hubspot Developer Test Account
 
-Visit (https://developers.hubspot.com/beta-docs/getting-started/account-types#developer-test-accounts)and create a hubspot developer test account
+Visit [developer test account page](https://developers.hubspot.com/beta-docs/getting-started/account-types#developer-test-accounts) and create a Hubspot developer test account.
 
 ### Step 3: Create a Hubspot Public App
 
