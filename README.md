@@ -34,7 +34,6 @@ Click on "Create App" and provide the necessary details, including the app name 
 Move to the auth tab in the created app and set the permissions there.
 
 Under the OAuth tab you can find the following details,
-
 * `client_id`: Your app's Client ID.
 * `redirect_uri`: The URL users will be redirected to after granting access.
 * `scope`: A space-separated list of scopes your app is requesting.
