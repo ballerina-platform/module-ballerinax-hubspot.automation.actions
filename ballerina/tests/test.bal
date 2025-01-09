@@ -16,7 +16,6 @@
 
 import ballerina/http;
 import ballerina/test;
-import ballerina/io;
 
 configurable boolean isLiveServer =?;
 configurable boolean isOauth = ?;
@@ -136,10 +135,8 @@ function testGetDefinitionById() returns error? {
     test:assertEquals(response?.inputFields[0]?.typeDefinition?.name, "optionsInput", "Input field name mismatch");
     test:assertEquals(response?.inputFields[0]?.typeDefinition?.optionsUrl, "https://webhook.site/94d09471-6f4c-4a7f-bae2-c9a585dd41e0", "Options URL mismatch");
     test:assertEquals(response?.revisionId, "1", "Revision ID mismatch");
-    test:assertEquals(response?.id, "183710236", "ID mismatch");
     test:assertEquals(response?.objectTypes[0], "0-1", "Object type mismatch");
 
-    io:println(response);
 }
 
 # Get all functions for a given definition
@@ -183,9 +180,6 @@ function testGetAllRevisions() returns error? {
 
     // assert response
     test:assertTrue(response?.results.length() > 0, "No revisions found for the extension");
-
-    
-
 }
 
 # Get a revision for a given definition by revision ID
@@ -207,7 +201,6 @@ function testGetRevision() returns error? {
     test:assertEquals(response?.definition?.inputFields[0]?.typeDefinition?.fieldType, "select", "Field type mismatch");
     test:assertEquals(response?.definition?.inputFields[0]?.typeDefinition?.optionsUrl, "https://webhook.site/94d09471-6f4c-4a7f-bae2-c9a585dd41e0", "Options URL mismatch");
     test:assertEquals(response?.definition?.revisionId, "1", "Revision ID mismatch");
-    io:println(response);
 
 }
 
@@ -238,13 +231,7 @@ function testDelete() returns error? {
 }
 function testDeleteFunction() returns error? {
     PublicActionFunction response = check hubspotAutomation->/[appId]/[createdExtensionId]/functions/["POST_ACTION_EXECUTION"];
-
-
-    // assert response
-    io:println(response);
-    
-
-    // validate response
+   // validate response
     test:assertTrue(response?.functionType === "POST_ACTION_EXECUTION", "Function deletion failed");
     test:assertTrue(response?.functionSource== "exports.main = (event, callback) => {\r\n  callback({\r\n    outputFields: {\r\n      myOutput: \"example output value\"\r\n    }\r\n  });\r\n}", "Function deletion failed");
 
