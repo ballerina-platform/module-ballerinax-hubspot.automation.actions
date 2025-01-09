@@ -39,6 +39,5 @@ public function main() returns error? {
             }
         ]
     };
-    http:Response response= check automationClient->/callbacks/complete.post(batchCallbackCompletionRequest);
-
+    _ = check automationClient->/callbacks/complete.post(batchCallbackCompletionRequest);
 }
