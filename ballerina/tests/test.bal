@@ -16,9 +16,9 @@
 
 import ballerina/http;
 import ballerina/test;
+import ballerina/io;
 
-configurable boolean isLiveServer = true;
-configurable string serviceUrl = isLiveServer ? "https://api.hubapi.com/automation/v4/actions" : "http://localhost:9090";
+configurable boolean isLiveServer =?;
 configurable boolean isOauth = ?;
 configurable string oauthKey = ?;
 configurable string apiKey = ?;
@@ -28,14 +28,13 @@ int:Signed32 appId = 5712614;
 // API Key Config
 ConnectionConfig apikeyConfig = {
     auth: {
-
         hapikey: apiKey,
         private\-app\-legacy: ""
     }
 };
 
 // Client initialization
-final Client hubspotAutomation = check new Client(apikeyConfig, serviceUrl);
+final Client hubspotAutomation = check new Client(apikeyConfig, "https://api.hubapi.com/automation/v4/actions");
 
 // Sample Extension Definition
 string createdExtensionId = "";
@@ -123,6 +122,24 @@ function testGetDefinitionById() returns error? {
 
     // Validate the retrieved extension's ID
     test:assertTrue(response?.id === createdExtensionId, "Extension retrieval failed");
+    test:assertEquals(response?.functions[0]?.functionType, "POST_ACTION_EXECUTION", "Function type mismatch");
+    test:assertEquals(response?.functions[1]?.functionType, "POST_FETCH_OPTIONS", "Function type mismatch");
+    test:assertEquals(response?.actionUrl, "https://webhook.site/94d09471-6f4c-4a7f-bae2-c9a585dd41e0", "Action URL mismatch");
+    test:assertEquals(response?.published, false, "Published status mismatch");
+    test:assertEquals(response?.labels["en"]?.appDisplayName, "My App Display Name", "App display name mismatch");
+    test:assertEquals(response?.labels["en"]?.actionDescription, "My Extension Description", "Action description mismatch");
+    test:assertEquals(response?.labels["en"]?.inputFieldLabels["optionsInput"], "External Options Input", "Input field label mismatch");
+    test:assertEquals(response?.labels["en"]?.actionName, "My Extension", "Action name mismatch");
+    test:assertEquals(response?.labels["en"]?.actionCardContent, "My Action Card Content", "Action card content mismatch");
+    test:assertEquals(response?.inputFields[0]?.isRequired, true, "Input field required status mismatch");
+    test:assertEquals(response?.inputFields[0]?.typeDefinition?.referencedObjectType, "OWNER", "Referenced object type mismatch");
+    test:assertEquals(response?.inputFields[0]?.typeDefinition?.name, "optionsInput", "Input field name mismatch");
+    test:assertEquals(response?.inputFields[0]?.typeDefinition?.optionsUrl, "https://webhook.site/94d09471-6f4c-4a7f-bae2-c9a585dd41e0", "Options URL mismatch");
+    test:assertEquals(response?.revisionId, "1", "Revision ID mismatch");
+    test:assertEquals(response?.id, "183710236", "ID mismatch");
+    test:assertEquals(response?.objectTypes[0], "0-1", "Object type mismatch");
+
+    io:println(response);
 }
 
 # Get all functions for a given definition
@@ -167,6 +184,8 @@ function testGetAllRevisions() returns error? {
     // assert response
     test:assertTrue(response?.results.length() > 0, "No revisions found for the extension");
 
+    
+
 }
 
 # Get a revision for a given definition by revision ID
@@ -182,6 +201,13 @@ function testGetRevision() returns error? {
 
     // assert response
     test:assertTrue(response?.revisionId === "1", "Revision retrieval failed");
+    test:assertEquals(response?.definition?.actionUrl, "https://webhook.site/94d09471-6f4c-4a7f-bae2-c9a585dd41e0", "Action URL mismatch");
+    test:assertEquals(response?.definition?.published, false, "Published status mismatch");
+    test:assertEquals(response?.definition?.inputFields[0]?.typeDefinition?.referencedObjectType, "OWNER", "Referenced object type mismatch");
+    test:assertEquals(response?.definition?.inputFields[0]?.typeDefinition?.fieldType, "select", "Field type mismatch");
+    test:assertEquals(response?.definition?.inputFields[0]?.typeDefinition?.optionsUrl, "https://webhook.site/94d09471-6f4c-4a7f-bae2-c9a585dd41e0", "Options URL mismatch");
+    test:assertEquals(response?.definition?.revisionId, "1", "Revision ID mismatch");
+    io:println(response);
 
 }
 
@@ -213,8 +239,14 @@ function testDelete() returns error? {
 function testDeleteFunction() returns error? {
     PublicActionFunction response = check hubspotAutomation->/[appId]/[createdExtensionId]/functions/["POST_ACTION_EXECUTION"];
 
+
+    // assert response
+    io:println(response);
+    
+
     // validate response
     test:assertTrue(response?.functionType === "POST_ACTION_EXECUTION", "Function deletion failed");
+    test:assertTrue(response?.functionSource== "exports.main = (event, callback) => {\r\n  callback({\r\n    outputFields: {\r\n      myOutput: \"example output value\"\r\n    }\r\n  });\r\n}", "Function deletion failed");
 
 }
 
@@ -224,7 +256,7 @@ function testDeleteFunction() returns error? {
 #
 @test:Config {
     groups: ["oauth"]
-}
+    }
 function testRespondBatch() returns error? {
 
     // BearerTokenConfig
@@ -233,6 +265,7 @@ function testRespondBatch() returns error? {
             token: oauthKey
         }
     };
+    string serviceUrl = isLiveServer ? "https://api.hubapi.com/automation/v4/actions" : "http://localhost:8080/mock";
 
     final Client hubspotAutomationOauth = check new Client(oauthConfig, serviceUrl);
 

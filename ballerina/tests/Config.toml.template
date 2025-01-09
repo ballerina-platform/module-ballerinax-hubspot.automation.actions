@@ -1,3 +1,0 @@
-isOauth="<boolean(true/false)>"  # only two api calls have oauth 
-oauthKey="<oauth-key>"
-apiKey="<api-key>"
