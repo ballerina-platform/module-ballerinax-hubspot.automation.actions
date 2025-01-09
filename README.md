@@ -38,40 +38,40 @@ Under the OAuth tab you can find the following details,
 * `redirect_uri`: The URL users will be redirected to after granting access.
 * `scope`: A space-separated list of scopes your app is requesting.
 
-![Auth Tab example](../docs/setup/resources/auth.png)
+![Auth Tab example](docs/setup/resources/auth.png)
 
 ### Step   5: Add the redirect URL
 
 Add your redirect url under the redirect urls.
 
-![add the redirect url](../docs/setup/resources/redirect_url.png)
+![add the redirect url](docs/setup/resources/redirect_url.png)
 
 ### Step   6: Add the Required Scopes
 
 Go to the relevant API documentation (https://developers.hubspot.com/docs/reference/api/automation/custom-workflow-actions) and find out the required scopes.
 For Automation Actions, we require the 'automation' scope.
 
-![Required Scope doc](../docs/setup/resources/scope_doc.png)
+![Required Scope doc](docs/setup/resources/scope_doc.png)
 
 Go back to the Auth Page and add the required scopes under the Auth tab .
 
-![Required Scopes](../docs/setup/resources/scopes.png)
+![Required Scopes](docs/setup/resources/scopes.png)
 
 Save the app
 
-![Save the app](../docs/setup/resources/save.png)
+![Save the app](docs/setup/resources/save.png)
 
 ### Step   7: Obtain the authorization code
 
 Copy the App installation url and paste it in the web browser.
 
-![Redirect URL ](../docs/setup/resources/redirect.png)
+![Redirect URL ](docs/setup/resources/redirect.png)
 
  It wll prompt you to install  the App and then select your developer test account.
 
 After selecting the developer test account, you will receive a authorization code displayed in the browser.
 
-![Obtain the authorization code](../docs/setup/resources/authorization_code.png)
+![Obtain the authorization code](docs/setup/resources/authorization_code.png)
 
 ### Step   8: Obtain the access token
 
@@ -184,10 +184,10 @@ actions : CollectionResponsePublicActionDefinitionForwardPaging response = check
 
 ## Examples
 
-The `Hubspot Automation API` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](../examples/), covering the following use cases:
+The `Hubspot Automation API` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/), covering the following use cases:
 
-1. [Extension CRUD](../examples/) - Perform CRUD operations on Extensions
-2. [Call complete callback APIs](../examples/) - complete callbacks using the  Hubspot API
+1. [Extension CRUD](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/)- Perform CRUD operations on Extensions
+2. [Call complete callback APIs](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/) - complete callbacks using the  Hubspot API
 
 ## Build from the source
 
