@@ -182,7 +182,8 @@ actions : CollectionResponsePublicActionDefinitionForwardPaging response = check
 
 ## Examples
 
-The `Hubspot Automation API` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](../examples/), covering the following use cases:
 
-1. [Extension CRUD](../examples/) - Perform CRUD operations on Extensions
-2. [Call complete callback APIs](../examples/) - complete callbacks using the  Hubspot API
+The `Hubspot Automation API` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/), covering the following use cases:
+
+1. [Extension CRUD](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/)- Perform CRUD operations on Extensions
+2. [Call complete callback APIs](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/) - complete callbacks using the  Hubspot API
