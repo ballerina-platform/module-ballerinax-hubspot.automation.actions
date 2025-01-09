@@ -108,10 +108,10 @@ Create a `actions:ConnectionConfig` object with your domain and developer API to
 
 ```ballerina
 actions:ConnectionConfig config = {
-   auth:{
-    hapikey:"<developer-api-key>" ,
+   auth: {
+    hapikey: "<developer-api-key>" ,
     private\-app\-legacy: ""
-}
+   }
 };
 actions:Client hubspotAutomation = check new (config);
 ```
