@@ -17,10 +17,6 @@ apiKey="<developer api key>"
 oauthKey="<oauth-key>"
 ```
 
-
-
-
-
 ## Running an example
 
 Execute the following commands to build an example from the source:
