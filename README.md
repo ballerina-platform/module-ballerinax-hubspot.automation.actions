@@ -174,9 +174,7 @@ actions: PublicActionDefinition response = check hubspotAutomation->/automation/
 #### List definitions
 
 ```ballerina
-
 actions : CollectionResponsePublicActionDefinitionForwardPaging response = check hubspotAutomation->/automation/v4/actions/[appId];
-
 ```
 
 ## Examples
