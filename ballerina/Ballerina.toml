@@ -5,7 +5,7 @@ name = "hubspot.automation.actions"
 version = "1.0.0"
 license = ["Apache-2.0"]
 authors = ["Ballerina"]
-keywords = ["Hubspot","automation","actions","ballerina","integration", "connector"] 
+keywords = ["HubSpot","automation","actions","ballerina","integration", "connector"] 
 icon = "icon.png" 
 repository = "https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions"
 

@@ -6,16 +6,16 @@ The `ballerinax/hubspot.automation.actions` offers APIs to connect and interact 
 
 ## Setup guide
 
-To use the Hubspot Automation action API connector in Ballerina, you must have a HubSpot developer account. If you don't have an account, create one using the following steps.
+To use the HubSpot Automation action API connector in Ballerina, you must have a HubSpot developer account. If you don't have an account, create one using the following steps.
 
-### Step 1: Create a Hubspot Developer Account
+### Step 1: Create a HubSpot Developer Account
 
-Visit the [Hubspot portal](https://developers.hubspot.com/get-started) and create a Developer Account.
+Visit the [HubSpot portal](https://developers.hubspot.com/get-started) and create a Developer Account.
 
-### Step 2: Create a Hubspot Developer Test Account
+### Step 2: Create a HubSpot Developer Test Account
 
-Visit [developer test account page](https://developers.hubspot.com/beta-docs/getting-started/account-types#developer-test-accounts) and create a Hubspot developer test account.
-### Step 3: Create a Hubspot Public App
+Visit [developer test account page](https://developers.hubspot.com/beta-docs/getting-started/account-types#developer-test-accounts) and create a HubSpot developer test account.
+### Step 3: Create a HubSpot Public App
 
 In your developer account, navigate to the "Apps" section.
 
@@ -42,13 +42,8 @@ Add your redirect url under the redirect urls.
 
 ### Step   6: Add the Required Scopes
 
-Go to the relevant API documentation (https://developers.hubspot.com/docs/reference/api/automation/custom-workflow-actions) and find out the required scopes.
-
-For Automation Actions, we require the 'automation' scope.
-
-![Required Scope doc](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/docs/setup/resources/scope_doc.png)
-
-Go back to the Auth Page and add the required scopes under the Auth tab .
+For Automation Actions, the required scopes are;
+* 'automation' 
 
 ![Required Scopes](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/docs/setup/resources/scopes.png)
 
@@ -87,7 +82,7 @@ Follow the instructions at (https://developers.hubspot.com/docs/api/developer-to
 
 ## Quickstart
 
-To begin using the `Hubspot Automation API` connector in your Ballerina application, you'll need to follow these steps:
+To begin using the `HubSpot Automation API` connector in your Ballerina application, you'll need to follow these steps:
 
 ### Step 1: Import the connector
 
@@ -182,8 +177,7 @@ actions : CollectionResponsePublicActionDefinitionForwardPaging response = check
 
 ## Examples
 
-
-The `Hubspot Automation API` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/), covering the following use cases:
+The `HubSpot Automation API` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/), covering the following use cases:
 
 1. [Extension CRUD](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/)- Perform CRUD operations on Extensions
-2. [Call complete callback APIs](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/) - complete callbacks using the  Hubspot API
+2. [Call complete callback APIs](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/) - Complete callbacks using the  HubSpot API
