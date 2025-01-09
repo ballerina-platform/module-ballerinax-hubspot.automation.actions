@@ -72,7 +72,7 @@ After selecting the developer test account, you will receive a authorization cod
 
 ### Step   8: Obtain the access token
 
-Place your **authorization_code**, **client_id** and **client_secret** in the folowing comand and execute it in the terminal
+Place your `<authorization_code>`, `<client_id>` and `<client_secret>` in the following command and execute it in the terminal
 
 'curl --request POST \
   --url https://api.hubapi.com/oauth/v1/token \
@@ -105,10 +105,10 @@ Create a `actions:ConnectionConfig` object with your domain and developer API to
 
 ```ballerina
 actions:ConnectionConfig config = {
-   auth:{
-    hapikey:"<developer-api-key>" ,
+   auth: {
+    hapikey: "<developer-api-key>" ,
     private\-app\-legacy: ""
-}
+   }
 };
 actions:Client hubspotAutomation = check new (config);
 ```
