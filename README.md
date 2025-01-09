@@ -110,7 +110,7 @@ actions:ConnectionConfig config = {
     private\-app\-legacy: ""
    }
 };
-actions:Client hubspotAutomation = check new (config);
+final actions:Client hubspotAutomation = check new (config);
 ```
 
 ### Step 3: Invoke the connector operation
