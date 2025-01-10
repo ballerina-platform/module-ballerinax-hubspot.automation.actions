@@ -17,7 +17,7 @@
 import ballerina/http;
 import ballerina/test;
 
-configurable boolean isLiveServer =?;
+configurable boolean isLiveServer =false;
 configurable boolean isOauth = ?;
 configurable string oauthKey = ?;
 configurable string apiKey = ?;
@@ -32,8 +32,11 @@ ConnectionConfig apikeyConfig = {
     }
 };
 
+string serviceUrl = isLiveServer ? "https://api.hubapi.com/automation/v4/actions" : "http://localhost:8080/mock";
+
+
 // Client initialization
-final Client hubspotAutomation = check new Client(apikeyConfig, "https://api.hubapi.com/automation/v4/actions");
+final Client hubspotAutomation = check new Client(apikeyConfig, serviceUrl);
 
 // Sample Extension Definition
 string createdExtensionId = "";
@@ -87,7 +90,9 @@ PublicActionDefinitionEgg testingPublicActionDefinitionEgg = {
 #
 # + return - error? if an error occurs, null otherwise
 #
-@test:Config {groups: ["apikey"]}
+@test:Config {
+    groups: ["apikey"],
+    enable: isLiveServer}
 function testPost() returns error? {
     PublicActionDefinition response = check hubspotAutomation->/[appId].post(testingPublicActionDefinitionEgg);
 
@@ -103,7 +108,8 @@ function testPost() returns error? {
 #
 @test:Config {
     groups: ["apikey"],
-    dependsOn: [testPost]
+    dependsOn: [testPost],
+    enable: isLiveServer
 }
 function testPostFunction() returns error? {
     PublicActionFunctionIdentifier response = check hubspotAutomation->/[appId]/[createdExtensionId]/functions/["POST_FETCH_OPTIONS"].put("exports.main = (event, callback) => {\r\n  callback({\r\n    \"options\": [{\r\n        \"label\": \"Big Widget\",\r\n        \"description\": \"Big Widget\",\r\n        \"value\": \"10\"\r\n      },\r\n      {\r\n        \"label\": \"Small Widget\",\r\n        \"description\": \"Small Widget\",\r\n        \"value\": \"1\"\r\n      }\r\n    ]\r\n  });\r\n}");
@@ -114,7 +120,8 @@ function testPostFunction() returns error? {
 
 @test:Config {
     dependsOn: [testPost],
-    groups: ["apikey"]
+    groups: ["apikey"],
+    enable: isLiveServer
 }
 function testGetDefinitionById() returns error? {
     PublicActionDefinition response = check hubspotAutomation->/[appId]/[createdExtensionId];
@@ -145,7 +152,9 @@ function testGetDefinitionById() returns error? {
 
 @test:Config {
     dependsOn: [testPostFunction],
-    groups: ["apikey"]
+    groups: ["apikey"],
+    enable: isLiveServer
+
 }
 function testGetAllFunctions() returns error? {
     CollectionResponsePublicActionFunctionIdentifierNoPaging response = check hubspotAutomation->/[appId]/[createdExtensionId]/functions;
@@ -159,7 +168,9 @@ function testGetAllFunctions() returns error? {
 #
 # + return - error? if an error occurs, null otherwise
 #
-@test:Config {groups: ["apikey"]}
+@test:Config {groups: ["apikey"],
+    enable: isLiveServer
+}
 function testGetPagedExtensionDefinitions() returns error? {
     CollectionResponsePublicActionDefinitionForwardPaging response = check hubspotAutomation->/[appId];
 
@@ -173,7 +184,9 @@ function testGetPagedExtensionDefinitions() returns error? {
 #
 @test:Config {
     dependsOn: [testPost],
-    groups: ["apikey"]
+    groups: ["apikey"],
+    enable: isLiveServer
+
 }
 function testGetAllRevisions() returns error? {
     CollectionResponsePublicActionRevisionForwardPaging response = check hubspotAutomation->/[appId]/[createdExtensionId]/revisions;
@@ -188,7 +201,9 @@ function testGetAllRevisions() returns error? {
 #
 @test:Config {
     dependsOn: [testPost],
-    groups: ["apikey"]
+    groups: ["apikey"],
+    enable: isLiveServer
+
 }
 function testGetRevision() returns error? {
     PublicActionRevision response = check hubspotAutomation->/[appId]/[createdExtensionId]/revisions/["1"];
@@ -210,7 +225,9 @@ function testGetRevision() returns error? {
 #
 @test:Config {
     dependsOn: [testPost, testDeleteFunction],
-    groups: ["apikey"]
+    groups: ["apikey"],
+    enable: isLiveServer
+
 }
 function testDelete() returns error? {
 
@@ -227,7 +244,9 @@ function testDelete() returns error? {
 #
 @test:Config {
     dependsOn: [testPost],
-    groups: ["apikey"]
+    groups: ["apikey"],
+    enable: isLiveServer
+
 }
 function testDeleteFunction() returns error? {
     PublicActionFunction response = check hubspotAutomation->/[appId]/[createdExtensionId]/functions/["POST_ACTION_EXECUTION"];
@@ -242,7 +261,9 @@ function testDeleteFunction() returns error? {
 # + return - error? if an error occurs, null otherwise
 #
 @test:Config {
-    groups: ["oauth"]
+    groups: ["oauth"],
+    enable: !isLiveServer
+
     }
 function testRespondBatch() returns error? {
 
@@ -252,7 +273,6 @@ function testRespondBatch() returns error? {
             token: oauthKey
         }
     };
-    string serviceUrl = isLiveServer ? "https://api.hubapi.com/automation/v4/actions" : "http://localhost:8080/mock";
 
     final Client hubspotAutomationOauth = check new Client(oauthConfig, serviceUrl);
 
