@@ -290,13 +290,13 @@ modules = [
 ]
 
 [[package]]
-org = "sajeenthiran"
+org = "wso2"
 name = "callback_completion"
 version = "0.1.0"
 dependencies = [
 	{org = "ballerinax", name = "hubspot.automation.actions"}
 ]
 modules = [
-	{org = "sajeenthiran", packageName = "callback_completion", moduleName = "callback_completion"}
+	{org = "wso2", packageName = "callback_completion", moduleName = "callback_completion"}
 ]
 
