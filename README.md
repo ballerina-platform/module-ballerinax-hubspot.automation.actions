@@ -110,7 +110,7 @@ actions:ConnectionConfig config = {
     private\-app\-legacy: ""
    }
 };
-actions:Client hubspotAutomation = check new (config);
+final actions:Client hubspotAutomation = check new (config);
 ```
 
 ### Step 3: Invoke the connector operation
@@ -174,9 +174,7 @@ actions: PublicActionDefinition response = check hubspotAutomation->/automation/
 #### List definitions
 
 ```ballerina
-
 actions : CollectionResponsePublicActionDefinitionForwardPaging response = check hubspotAutomation->/automation/v4/actions/[appId];
-
 ```
 
 ## Examples
