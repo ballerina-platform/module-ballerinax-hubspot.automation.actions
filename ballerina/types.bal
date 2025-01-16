@@ -272,6 +272,8 @@ public type NextPage record {
 
 # Provides API key configurations needed when communicating with a remote HTTP endpoint.
 public type ApiKeysConfig record {|
+    # The API key used for authentication.
     string hapikey;
+    # The private app legacy key used for authentication.
     string private\-app\-legacy;
 |};
