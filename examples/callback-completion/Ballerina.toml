@@ -1,0 +1,11 @@
+
+[package]
+org = "wso2"
+name = "callback_completion"
+version = "0.1.0"
+
+[[dependency]]
+org = "ballerinax"
+name = "hubspot.automation.actions"
+version = "1.0.0"
+repository = "local"

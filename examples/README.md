@@ -2,13 +2,20 @@
 
 The `ballerinax/hubspot.automation.actions` connector provides practical examples illustrating usage in various scenarios.
 
-[//]: # (TODO: Add examples)
-1. 
-2. 
+1.[Extension Defintion CRUD](examples/extension-crud/main.bal)
+
+2.[Callback Completion](examples/callback-completion/main.bal)
 
 ## Prerequisites
 
-[//]: # (TODO: Add prerequisites)
+1. Generate Credentials to authenticate the connector as described in the [Setup Guide](README.md)
+
+2. For each example create a Config.toml following the [Config.toml.template] 
+
+```
+apiKey="<developer api key>"
+oauthKey="<oauth-key>"
+```
 
 ## Running an example
 
