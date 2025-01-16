@@ -31,8 +31,6 @@ ConnectionConfig apikeyConfig = {
     }
 };
 
-
-
 // Client initialization
 final Client hubspotAutomation = check new Client(apikeyConfig, "https://api.hubapi.com/automation/v4/actions");
 
