@@ -100,5 +100,7 @@ public function main() returns error? {
     // Delete Extension
     http:Response deleteResponse = check hubspotAutomation->/[appId]/[createdExtensionId].delete();
     io:println("Extension Deleted");
+    io:print("Status Code: ");
+    io:println(deleteResponse.statusCode);
 
 }
