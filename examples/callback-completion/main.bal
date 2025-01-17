@@ -15,6 +15,8 @@
 // under the License.
 
 import ballerinax/hubspot.automation.actions;
+import ballerina/http;
+import ballerina/io;
 
 configurable string oauthKey = ?;
 
@@ -38,5 +40,6 @@ public function main() returns error? {
             }
         ]
     };
-    _ = check automationClient->/callbacks/complete.post(batchCallbackCompletionRequest);
+    http:Response response= check automationClient->/callbacks/complete.post(batchCallbackCompletionRequest);
+    io:println("Status Code: " + response.statusCode.toString());
 }

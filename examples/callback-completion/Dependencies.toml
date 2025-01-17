@@ -85,6 +85,10 @@ dependencies = [
 	{org = "ballerina", name = "time"},
 	{org = "ballerina", name = "url"}
 ]
+modules = [
+	{org = "ballerina", packageName = "http", moduleName = "http"},
+	{org = "ballerina", packageName = "http", moduleName = "http.httpscerr"}
+]
 
 [[package]]
 org = "ballerina"
@@ -93,6 +97,9 @@ version = "1.6.3"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"},
 	{org = "ballerina", name = "lang.value"}
+]
+modules = [
+	{org = "ballerina", packageName = "io", moduleName = "io"}
 ]
 
 [[package]]
@@ -294,6 +301,8 @@ org = "wso2"
 name = "callback_completion"
 version = "0.1.0"
 dependencies = [
+	{org = "ballerina", name = "http"},
+	{org = "ballerina", name = "io"},
 	{org = "ballerinax", name = "hubspot.automation.actions"}
 ]
 modules = [
