@@ -17,8 +17,7 @@
 import ballerina/http;
 import ballerina/test;
 
-configurable boolean isOauth = ?;
-configurable string apiKey = ?;
+configurable string apiKey = "apiKey";
 
 int:Signed32 appId = 5712614;
 

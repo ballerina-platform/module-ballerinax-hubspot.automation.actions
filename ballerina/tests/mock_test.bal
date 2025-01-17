@@ -2,7 +2,7 @@ import ballerina/test;
 import ballerina/http;
 import ballerina/io;
 
-configurable string oauthKey = ?;
+configurable string oauthKey = "oauthKey";
 
 # Completes a batch of callbacks
 #
