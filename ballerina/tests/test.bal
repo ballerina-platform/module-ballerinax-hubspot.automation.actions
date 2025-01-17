@@ -18,6 +18,7 @@ import ballerina/http;
 import ballerina/test;
 
 configurable string apiKey = "apiKey";
+configurable boolean enableLiveServerTest = false;
 
 int:Signed32 appId = 5712614;
 
@@ -30,7 +31,7 @@ ConnectionConfig apikeyConfig = {
 };
 
 // Client initialization
-final Client hubspotAutomation = check new Client(apikeyConfig, "https://api.hubapi.com/automation/v4/actions");
+final Client hubspotAutomation = check new Client(apikeyConfig);
 
 // Sample Extension Definition
 string createdExtensionId = "";
@@ -85,7 +86,8 @@ PublicActionDefinitionEgg testingPublicActionDefinitionEgg = {
 # + return - error? if an error occurs, null otherwise
 #
 @test:Config {
-    groups: ["live_tests"]
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
 }
 function testPost() returns error? {
     PublicActionDefinition response = check hubspotAutomation->/[appId].post(testingPublicActionDefinitionEgg);
@@ -102,7 +104,8 @@ function testPost() returns error? {
 #
 @test:Config {
     groups: ["live_tests"],
-    dependsOn: [testPost]
+    dependsOn: [testPost],
+    enable: enableLiveServerTest
 }
 function testPostFunction() returns error? {
     PublicActionFunctionIdentifier response = check hubspotAutomation->/[appId]/[createdExtensionId]/functions/["POST_FETCH_OPTIONS"].put("exports.main = (event, callback) => {\r\n  callback({\r\n    \"options\": [{\r\n        \"label\": \"Big Widget\",\r\n        \"description\": \"Big Widget\",\r\n        \"value\": \"10\"\r\n      },\r\n      {\r\n        \"label\": \"Small Widget\",\r\n        \"description\": \"Small Widget\",\r\n        \"value\": \"1\"\r\n      }\r\n    ]\r\n  });\r\n}");
@@ -113,7 +116,8 @@ function testPostFunction() returns error? {
 
 @test:Config {
     dependsOn: [testPost],
-    groups: ["live_tests"]
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
 }
 function testGetDefinitionById() returns error? {
     PublicActionDefinition response = check hubspotAutomation->/[appId]/[createdExtensionId];
@@ -144,7 +148,8 @@ function testGetDefinitionById() returns error? {
 
 @test:Config {
     dependsOn: [testPostFunction],
-    groups: ["live_tests"]
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
 }
 function testGetAllFunctions() returns error? {
     CollectionResponsePublicActionFunctionIdentifierNoPaging response = check hubspotAutomation->/[appId]/[createdExtensionId]/functions;
@@ -158,7 +163,9 @@ function testGetAllFunctions() returns error? {
 #
 # + return - error? if an error occurs, null otherwise
 #
-@test:Config {groups: ["live_tests"]
+@test:Config {
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
 }
 function testGetPagedExtensionDefinitions() returns error? {
     CollectionResponsePublicActionDefinitionForwardPaging response = check hubspotAutomation->/[appId];
@@ -173,7 +180,8 @@ function testGetPagedExtensionDefinitions() returns error? {
 #
 @test:Config {
     dependsOn: [testPost],
-    groups: ["live_tests"]
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
 }
 function testGetAllRevisions() returns error? {
     CollectionResponsePublicActionRevisionForwardPaging response = check hubspotAutomation->/[appId]/[createdExtensionId]/revisions;
@@ -188,7 +196,8 @@ function testGetAllRevisions() returns error? {
 #
 @test:Config {
     dependsOn: [testPost],
-    groups: ["live_tests"]
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
 }
 function testGetRevision() returns error? {
     PublicActionRevision response = check hubspotAutomation->/[appId]/[createdExtensionId]/revisions/["1"];
@@ -210,7 +219,8 @@ function testGetRevision() returns error? {
 #
 @test:Config {
     dependsOn: [testPost, testDeleteFunction],
-    groups: ["live_tests"]
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
 }
 function testDelete() returns error? {
 
@@ -227,7 +237,8 @@ function testDelete() returns error? {
 #
 @test:Config {
     dependsOn: [testPost],
-    groups: ["live_tests"]
+    groups: ["live_tests"],
+    enable: enableLiveServerTest
 }
 function testDeleteFunction() returns error? {
     PublicActionFunction response = check hubspotAutomation->/[appId]/[createdExtensionId]/functions/["POST_ACTION_EXECUTION"];
