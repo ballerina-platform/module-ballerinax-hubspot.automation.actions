@@ -21,51 +21,50 @@ Visit [developer test account page](https://developers.hubspot.com/beta-docs/get
 In your developer account, navigate to the "Apps" section.
 
 Click on "Create App" and provide the necessary details, including the app name and description.
-
 ### Step 4: Initiate the OAuth Flow
 
 Move to the Auth tab in the created app and set the permissions there.
 
 Under the OAuth tab you can find the following details,
-
 * `client_id`: Your app's Client ID.
 * `redirect_uri`: The URL users will be redirected to after granting access.
 * `scope`: A space-separated list of scopes your app is requesting.
 
-![Auth Tab example](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/docs/setup/resources/auth.png)
+![Auth Tab example](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/refs/heads/main/docs/setup/resources/auth.png)
 
 ### Step   5: Add the redirect URL
 
 Add your redirect url under the redirect urls.
 
-![add the redirect url](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/docs/setup/resources/redirect_url.png)
+![add the redirect url](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/refs/heads/main/docs/setup/resources/redirect_url.png)
 
 ### Step   6: Add the Required Scopes
 
 For Automation Actions, the required scopes are;
 * 'automation' 
 
-![Required Scopes](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/docs/setup/resources/scopes.png)
+
+![Required Scopes](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/refs/heads/main/docs/setup/resources/scopes.png)
 
 Save the app
 
-![Save the app](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/docs/setup/resources/save.png)
+![Save the app](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/refs/heads/main/docs/setup/resources/save.png)
 
 ### Step   7: Obtain the authorization code
 
 Copy the App installation url and paste it in the web browser.
 
-![Redirect URL ](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/docs/setup/resources/redirect.png)
+![Redirect URL ](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/refs/heads/main/docs/setup/resources/redirect.png)
 
  It wll prompt you to install  the App and then select your developer test account.
 
 After selecting the developer test account, you will receive a authorization code displayed in the browser.
 
-![Obtain the authorization code](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/docs/setup/resources/authorization_code.png)
+![Obtain the authorization code](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/refs/heads/main/docs/setup/resources/authorization_code.png)
 
 ### Step   8: Obtain the access token
 
-Place your **authorization_code**, **client_id** and **client_secret** in the folowing comand and execute it in the terminal
+Place your `<authorization_code>`, `<client_id>` and `<client_secret>` in the following command and execute it in the terminal
 
 'curl --request POST \
   --url https://api.hubapi.com/oauth/v1/token \
@@ -98,12 +97,12 @@ Create a `actions:ConnectionConfig` object with your domain and developer API to
 
 ```ballerina
 actions:ConnectionConfig config = {
-   auth:{
-    hapikey:"<developer-api-key>" ,
+   auth: {
+    hapikey: "<developer-api-key>" ,
     private\-app\-legacy: ""
-}
+   }
 };
-actions:Client hubspotAutomation = check new (config);
+final actions:Client hubspotAutomation = check new (config);
 ```
 
 ### Step 3: Invoke the connector operation
@@ -161,24 +160,18 @@ actions:PublicActionDefinitionEgg testingPublicActionDefinitionEgg = {
     }
 };
 
-
-
-
 actions: PublicActionDefinition response = check hubspotAutomation->/[appId].post(testingPublicActionDefinitionEgg);
 ```
 
 #### List definitions
 
 ```ballerina
-
 actions : CollectionResponsePublicActionDefinitionForwardPaging response = check hubspotAutomation->/automation/v4/actions/[appId];
-
 ```
 
 ## Examples
 
-
 The `HubSpot Automation API` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/), covering the following use cases:
 
-1. [Extension CRUD](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/)- Perform CRUD operations on Extensions
-2. [Call complete callback APIs](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/) - Complete callbacks using the  HubSpot API
+1. [Extension CRUD](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/extension-crud)- Perform CRUD operations on Extensions
+2. [Call complete callback APIs](https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/tree/main/examples/callback-completion) - Complete callbacks using the  HubSpot API
