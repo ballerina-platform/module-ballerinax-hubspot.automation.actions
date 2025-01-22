@@ -1,8 +1,8 @@
 ## Overview
 
-[HubSpot](https://www.hubspot.com/) is an AI-powered customer relationship management (CRM) platform. 
+[HubSpot](https://www.hubspot.com/) is an AI-powered customer relationship management (CRM) platform.
 
-The `ballerinax/hubspot.automation.actions` offers APIs to connect and interact with the [Automation Actions](https://developers.hubspot.com/docs/reference/api/automation/custom-workflow-actions)  endpoints, specifically based on the [HubSpot REST API](https://developers.hubspot.com/docs/reference/api/automation/custom-workflow-actions)
+The `ballerinax/hubspot.automation.actions` offers APIs to connect and interact with the [Automation Actions](https://developers.hubspot.com/docs/reference/api/automation/custom-workflow-actions)  endpoints, specifically based on the [HubSpot REST API](https://developers.hubspot.com/docs/reference/api/automation/custom-workflow-actions).
 
 ## Setup guide
 
@@ -21,11 +21,13 @@ Visit [developer test account page](https://developers.hubspot.com/beta-docs/get
 In your developer account, navigate to the "Apps" section.
 
 Click on "Create App" and provide the necessary details, including the app name and description.
+
 ### Step 4: Initiate the OAuth Flow
 
 Move to the Auth tab in the created app and set the permissions there.
 
 Under the OAuth tab you can find the following details,
+
 * `client_id`: Your app's Client ID.
 * `redirect_uri`: The URL users will be redirected to after granting access.
 * `scope`: A space-separated list of scopes your app is requesting.
@@ -41,8 +43,8 @@ Add your redirect url under the redirect urls.
 ### Step   6: Add the Required Scopes
 
 For Automation Actions, the required scopes are;
-* 'automation' 
 
+* 'automation'
 
 ![Required Scopes](https://raw.githubusercontent.com/ballerina-platform/module-ballerinax-hubspot.automation.actions/refs/heads/main/docs/setup/resources/scopes.png)
 
@@ -130,8 +132,6 @@ actions:InputFieldDefinition inputFieldDefinition = {
     typeDefinition: typeDefinition,
     supportedValueTypes: ["STATIC_VALUE"]
 };
-
-
 
 actions:PublicActionFunction publicActionFunction = {
     functionSource: "exports.main = (event, callback) => {\r\n  callback({\r\n    outputFields: {\r\n      myOutput: \"example output value\"\r\n    }\r\n  });\r\n}",
