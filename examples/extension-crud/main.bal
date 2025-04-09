@@ -15,7 +15,6 @@
 // under the License.
 
 import ballerina/io;
-import ballerina/http;
 import ballerinax/hubspot.automation.actions;
 
 configurable string apiKey = ?;
@@ -25,9 +24,8 @@ public function main() returns error? {
     // Developer API Key Config
     actions:ConnectionConfig apikeyConfig = {
         auth: {
-
             hapikey: apiKey,
-            private\-app\-legacy: ""
+            privateAppLegacy: ""
         }
     };
 
@@ -98,9 +96,6 @@ public function main() returns error? {
     io:println(updateResponse);
 
     // Delete Extension
-    http:Response deleteResponse = check hubspotAutomation->/[appId]/[createdExtensionId].delete();
+    _ = check hubspotAutomation->/[appId]/[createdExtensionId].delete();
     io:println("Extension Deleted");
-    io:print("Status Code: ");
-    io:println(deleteResponse.statusCode);
-
 }

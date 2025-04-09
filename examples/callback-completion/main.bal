@@ -14,9 +14,8 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerinax/hubspot.automation.actions;
-import ballerina/http;
 import ballerina/io;
+import ballerinax/hubspot.automation.actions;
 
 configurable string oauthKey = ?;
 
@@ -40,6 +39,6 @@ public function main() returns error? {
             }
         ]
     };
-    http:Response response= check automationClient->/callbacks/complete.post(batchCallbackCompletionRequest);
-    io:println("Status Code: " + response.statusCode.toString());
+    _ = check automationClient->/callbacks/complete.post(batchCallbackCompletionRequest);
+    io:println("Batch completion request sent successfully");
 }

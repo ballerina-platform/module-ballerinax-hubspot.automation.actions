@@ -1,6 +1,4 @@
 import ballerina/test;
-import ballerina/http;
-import ballerina/io;
 
 configurable string oauthKey = "oauthKey";
 
@@ -32,10 +30,8 @@ function testRespondBatch() returns error? {
             }
         ]
     };
-    http:Response response = check hubspotAutomationOauth->/callbacks/complete.post(batchCallbackCompletionRequest);
+    error? response = hubspotAutomationOauth->/callbacks/complete.post(batchCallbackCompletionRequest);
 
-    io:print("Status Code ");
-    io:println(response.statusCode);
     // assert response
-    test:assertTrue(response.statusCode == 204, "Batch completion failed");
+    test:assertTrue(response is (), "Batch completion failed");
 }
