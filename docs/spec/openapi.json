@@ -110,7 +110,7 @@
         "parameters" : [ {
           "name" : "limit",
           "in" : "query",
-          "description" : "The maximum number of results to display per page.",
+          "description" : "The maximum number of results to display per page",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -121,7 +121,7 @@
         }, {
           "name" : "after",
           "in" : "query",
-          "description" : "The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.",
+          "description" : "The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -131,7 +131,7 @@
         }, {
           "name" : "archived",
           "in" : "query",
-          "description" : "Whether to return only results that have been archived.",
+          "description" : "Whether to return only results that have been archived",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -495,7 +495,7 @@
         }, {
           "name" : "archived",
           "in" : "query",
-          "description" : "Whether to return only results that have been archived.",
+          "description" : "Whether to return only results that have been archived",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -833,7 +833,7 @@
         }, {
           "name" : "limit",
           "in" : "query",
-          "description" : "The maximum number of results to display per page.",
+          "description" : "The maximum number of results to display per page",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -844,7 +844,7 @@
         }, {
           "name" : "after",
           "in" : "query",
-          "description" : "The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.",
+          "description" : "The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results",
           "required" : false,
           "style" : "form",
           "explode" : true,
@@ -945,11 +945,7 @@
           "inputFieldDependencies" : {
             "type" : "array",
             "items" : {
-              "oneOf" : [ {
-                "$ref" : "#/components/schemas/PublicSingleFieldDependency"
-              }, {
-                "$ref" : "#/components/schemas/PublicConditionalSingleFieldDependency"
-              } ]
+              "$ref" : "#/components/schemas/PublicActionDefinitionInputFieldDependencies"
             }
           },
           "executionRules" : {
@@ -979,8 +975,8 @@
         "properties" : {
           "dependencyType" : {
             "type" : "string",
-            "enum" : [ "CONDITIONAL_SINGLE_FIELD" ],
-            "default" : "CONDITIONAL_SINGLE_FIELD"
+            "default" : "CONDITIONAL_SINGLE_FIELD",
+            "enum" : [ "CONDITIONAL_SINGLE_FIELD" ]
           },
           "controllingFieldName" : {
             "type" : "string"
@@ -995,6 +991,13 @@
             }
           }
         }
+      },
+      "PublicActionDefinitionInputFieldDependencies" : {
+        "oneOf" : [ {
+          "$ref" : "#/components/schemas/PublicSingleFieldDependency"
+        }, {
+          "$ref" : "#/components/schemas/PublicConditionalSingleFieldDependency"
+        } ]
       },
       "PublicObjectRequestOptions" : {
         "required" : [ "properties" ],
@@ -1022,7 +1025,7 @@
           },
           "in" : {
             "type" : "string",
-            "description" : "The name of the field or parameter in which the error was found."
+            "description" : "The name of the field or parameter in which the error was found"
           },
           "context" : {
             "type" : "object",
@@ -1101,8 +1104,8 @@
         "properties" : {
           "dependencyType" : {
             "type" : "string",
-            "enum" : [ "SINGLE_FIELD" ],
-            "default" : "SINGLE_FIELD"
+            "default" : "SINGLE_FIELD",
+            "enum" : [ "SINGLE_FIELD" ]
           },
           "controllingFieldName" : {
             "type" : "string"
@@ -1357,6 +1360,13 @@
           }
         }
       },
+      "PublicActionDefinitionEggInputFieldDependencies" : {
+        "oneOf" : [ {
+          "$ref" : "#/components/schemas/PublicSingleFieldDependency"
+        }, {
+          "$ref" : "#/components/schemas/PublicConditionalSingleFieldDependency"
+        } ]
+      },
       "CallbackCompletionBatchRequest" : {
         "required" : [ "callbackId", "outputFields" ],
         "type" : "object",
@@ -1404,11 +1414,7 @@
           "inputFieldDependencies" : {
             "type" : "array",
             "items" : {
-              "oneOf" : [ {
-                "$ref" : "#/components/schemas/PublicSingleFieldDependency"
-              }, {
-                "$ref" : "#/components/schemas/PublicConditionalSingleFieldDependency"
-              } ]
+              "$ref" : "#/components/schemas/PublicActionDefinitionEggInputFieldDependencies"
             }
           },
           "published" : {
@@ -1458,11 +1464,7 @@
           "inputFieldDependencies" : {
             "type" : "array",
             "items" : {
-              "oneOf" : [ {
-                "$ref" : "#/components/schemas/PublicSingleFieldDependency"
-              }, {
-                "$ref" : "#/components/schemas/PublicConditionalSingleFieldDependency"
-              } ]
+              "$ref" : "#/components/schemas/PublicActionDefinitionPatchInputFieldDependencies"
             }
           },
           "published" : {
@@ -1502,6 +1504,13 @@
             }
           }
         }
+      },
+      "PublicActionDefinitionPatchInputFieldDependencies" : {
+        "oneOf" : [ {
+          "$ref" : "#/components/schemas/PublicSingleFieldDependency"
+        }, {
+          "$ref" : "#/components/schemas/PublicConditionalSingleFieldDependency"
+        } ]
       },
       "Option" : {
         "required" : [ "description", "displayOrder", "doubleData", "hidden", "label", "readOnly", "value" ],
@@ -1586,7 +1595,8 @@
       "private_apps_legacy" : {
         "type" : "apiKey",
         "name" : "private-app-legacy",
-        "in" : "header"
+        "in" : "header",
+        "x-ballerina-name" : "privateAppLegacy"
       }
     }
   },
