@@ -2,7 +2,7 @@
 distribution = "2201.10.0"
 org = "ballerinax"
 name = "hubspot.automation.actions"
-version = "1.0.0"
+version = "2.0.0"
 license = ["Apache-2.0"]
 authors = ["Ballerina"]
 keywords = ["HubSpot","automation","actions","ballerina","integration", "connector"] 
@@ -10,6 +10,3 @@ repository = "https://github.com/ballerina-platform/module-ballerinax-hubspot.au
 
 [build-options]
 observabilityIncluded = true
-
-[platform.java17]
-graalvmCompatible = true

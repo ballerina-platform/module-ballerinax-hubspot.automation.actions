@@ -14,7 +14,6 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import ballerina/http;
 import ballerina/test;
 
 configurable string apiKey = "apiKey";
@@ -26,7 +25,7 @@ int:Signed32 appId = 5712614;
 ConnectionConfig apikeyConfig = {
     auth: {
         hapikey: apiKey,
-        private\-app\-legacy: ""
+        privateAppLegacy: ""
     }
 };
 
@@ -224,10 +223,10 @@ function testGetRevision() returns error? {
 }
 function testDelete() returns error? {
 
-    http:Response response = check hubspotAutomation->/[appId]/[createdExtensionId].delete();
+    error? response = hubspotAutomation->/[appId]/[createdExtensionId].delete();
 
     // assert response
-    test:assertTrue(response.statusCode == 204, "Extension deletion failed");
+    test:assertTrue(response is (), "Extension deletion failed");
 
 }
 
@@ -242,8 +241,8 @@ function testDelete() returns error? {
 }
 function testDeleteFunction() returns error? {
     PublicActionFunction response = check hubspotAutomation->/[appId]/[createdExtensionId]/functions/["POST_ACTION_EXECUTION"];
-   // validate response
+    // validate response
     test:assertTrue(response?.functionType === "POST_ACTION_EXECUTION", "Function deletion failed");
-    test:assertTrue(response?.functionSource== "exports.main = (event, callback) => {\r\n  callback({\r\n    outputFields: {\r\n      myOutput: \"example output value\"\r\n    }\r\n  });\r\n}", "Function deletion failed");
+    test:assertTrue(response?.functionSource == "exports.main = (event, callback) => {\r\n  callback({\r\n    outputFields: {\r\n      myOutput: \"example output value\"\r\n    }\r\n  });\r\n}", "Function deletion failed");
 
 }

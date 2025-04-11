@@ -31,7 +31,7 @@ public type PublicActionDefinition record {
     OutputFieldDefinition[] outputFields?;
     string revisionId;
     int archivedAt?;
-    (PublicSingleFieldDependency|PublicConditionalSingleFieldDependency)[] inputFieldDependencies?;
+    PublicActionDefinitionInputFieldDependencies[] inputFieldDependencies?;
     PublicExecutionTranslationRule[] executionRules?;
     string id;
     string[] objectTypes;
@@ -39,20 +39,16 @@ public type PublicActionDefinition record {
 };
 
 public type PublicConditionalSingleFieldDependency record {
-    "CONDITIONAL_SINGLE_FIELD" dependencyType;
+    "CONDITIONAL_SINGLE_FIELD" dependencyType = "CONDITIONAL_SINGLE_FIELD";
     string controllingFieldName;
     string controllingFieldValue;
     string[] dependentFieldNames;
 };
 
+public type PublicActionDefinitionInputFieldDependencies PublicSingleFieldDependency|PublicConditionalSingleFieldDependency;
+
 public type PublicObjectRequestOptions record {
     string[] properties;
-};
-
-public type PublicSingleFieldDependency record {
-    "SINGLE_FIELD" dependencyType;
-    string controllingFieldName;
-    string[] dependentFieldNames;
 };
 
 public type PublicActionLabels record {
@@ -67,16 +63,14 @@ public type PublicActionLabels record {
     string actionCardContent?;
 };
 
-public type ForwardPaging record {
-    NextPage next?;
+public type PublicSingleFieldDependency record {
+    "SINGLE_FIELD" dependencyType = "SINGLE_FIELD";
+    string controllingFieldName;
+    string[] dependentFieldNames;
 };
 
-# Represents the Queries record for the operation: get-/{appId}/{definitionId}/revisions_getPage
-public type GetAppidDefinitionidRevisions_getpageQueries record {
-    # The maximum number of results to display per page.
-    int:Signed32 'limit?;
-    # The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
-    string after?;
+public type ForwardPaging record {
+    NextPage next?;
 };
 
 public type FieldTypeDefinition record {
@@ -93,15 +87,15 @@ public type FieldTypeDefinition record {
     boolean externalOptions;
 };
 
-public type CollectionResponsePublicActionFunctionIdentifierNoPaging record {
-    PublicActionFunctionIdentifier[] results;
-};
-
 public type InputFieldDefinition record {
     boolean isRequired;
     string automationFieldType?;
     FieldTypeDefinition typeDefinition;
     ("STATIC_VALUE"|"OBJECT_PROPERTY"|"FIELD_DATA"|"FETCHED_OBJECT_PROPERTY"|"ENROLLMENT_EVENT_PROPERTY")[] supportedValueTypes?;
+};
+
+public type CollectionResponsePublicActionFunctionIdentifierNoPaging record {
+    PublicActionFunctionIdentifier[] results;
 };
 
 # OAuth2 Refresh Token Grant Configs
@@ -110,6 +104,16 @@ public type OAuth2RefreshTokenGrantConfig record {|
     # Refresh URL
     string refreshUrl = "https://api.hubapi.com/oauth/v1/token";
 |};
+
+# Represents the Queries record for the operation: get-/{appId}_getPage
+public type GetAppIdGetPageQueries record {
+    # Whether to return only results that have been archived
+    boolean archived = false;
+    # The maximum number of results to display per page
+    int:Signed32 'limit?;
+    # The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results
+    string after?;
+};
 
 public type PublicExecutionTranslationRule record {
     string labelName;
@@ -129,31 +133,40 @@ public type ConnectionConfig record {|
     # The HTTP version understood by the client
     http:HttpVersion httpVersion = http:HTTP_2_0;
     # Configurations related to HTTP/1.x protocol
-    ClientHttp1Settings http1Settings?;
+    http:ClientHttp1Settings http1Settings = {};
     # Configurations related to HTTP/2 protocol
-    http:ClientHttp2Settings http2Settings?;
+    http:ClientHttp2Settings http2Settings = {};
     # The maximum time to wait (in seconds) for a response before closing the connection
-    decimal timeout = 60;
+    decimal timeout = 30;
     # The choice of setting `forwarded`/`x-forwarded` header
     string forwarded = "disable";
+    # Configurations associated with Redirection
+    http:FollowRedirects followRedirects?;
     # Configurations associated with request pooling
     http:PoolConfiguration poolConfig?;
     # HTTP caching related configurations
-    http:CacheConfig cache?;
+    http:CacheConfig cache = {};
     # Specifies the way of handling compression (`accept-encoding`) header
     http:Compression compression = http:COMPRESSION_AUTO;
     # Configurations associated with the behaviour of the Circuit Breaker
     http:CircuitBreakerConfig circuitBreaker?;
     # Configurations associated with retrying
     http:RetryConfig retryConfig?;
+    # Configurations associated with cookies
+    http:CookieConfig cookieConfig?;
     # Configurations associated with inbound response size limits
-    http:ResponseLimitConfigs responseLimits?;
+    http:ResponseLimitConfigs responseLimits = {};
     # SSL/TLS-related options
     http:ClientSecureSocket secureSocket?;
     # Proxy server related options
     http:ProxyConfig proxy?;
+    # Provides settings related to client socket configuration
+    http:ClientSocketConfig socketConfig = {};
     # Enables the inbound payload validation functionality which provided by the constraint package. Enabled by default
     boolean validation = true;
+    # Enables relaxed data binding on the client side. When enabled, `nil` values are treated as optional, 
+    # and absent fields are handled as `nilable` types. Enabled by default.
+    boolean laxDataBinding = true;
 |};
 
 public type PublicActionRevision record {
@@ -177,32 +190,17 @@ public type CollectionResponsePublicActionRevisionForwardPaging record {
     PublicActionRevision[] results;
 };
 
-# Proxy server configurations to be used with the HTTP client endpoint.
-public type ProxyConfig record {|
-    # Host name of the proxy server
-    string host = "";
-    # Proxy server port
-    int port = 0;
-    # Proxy server username
-    string userName = "";
-    # Proxy server password
-    @display {label: "", kind: "password"}
-    string password = "";
-|};
+public type PublicActionDefinitionEggInputFieldDependencies PublicSingleFieldDependency|PublicConditionalSingleFieldDependency;
+
+# Represents the Queries record for the operation: get-/{appId}/{definitionId}_getById
+public type GetAppIdDefinitionIdGetByIdQueries record {
+    # Whether to return only results that have been archived
+    boolean archived = false;
+};
 
 public type CallbackCompletionBatchRequest record {
     record {|string...;|} outputFields;
     string callbackId;
-};
-
-# Represents the Queries record for the operation: get-/{appId}_getPage
-public type GetAppid_getpageQueries record {
-    # Whether to return only results that have been archived.
-    boolean archived = false;
-    # The maximum number of results to display per page.
-    int:Signed32 'limit?;
-    # The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results.
-    string after?;
 };
 
 public type PublicActionDefinitionEgg record {
@@ -211,7 +209,7 @@ public type PublicActionDefinitionEgg record {
     int archivedAt?;
     PublicActionFunction[] functions;
     string actionUrl;
-    (PublicSingleFieldDependency|PublicConditionalSingleFieldDependency)[] inputFieldDependencies?;
+    PublicActionDefinitionEggInputFieldDependencies[] inputFieldDependencies?;
     boolean published;
     PublicExecutionTranslationRule[] executionRules?;
     string[] objectTypes;
@@ -219,21 +217,11 @@ public type PublicActionDefinitionEgg record {
     record {|PublicActionLabels...;|} labels;
 };
 
-# Provides settings related to HTTP/1.x protocol.
-public type ClientHttp1Settings record {|
-    # Specifies whether to reuse a connection for multiple requests
-    http:KeepAlive keepAlive = http:KEEPALIVE_AUTO;
-    # The chunking behaviour of the request
-    http:Chunking chunking = http:CHUNKING_AUTO;
-    # Proxy server related options
-    ProxyConfig proxy?;
-|};
-
 public type PublicActionDefinitionPatch record {
     InputFieldDefinition[] inputFields?;
     OutputFieldDefinition[] outputFields?;
     string actionUrl?;
-    (PublicSingleFieldDependency|PublicConditionalSingleFieldDependency)[] inputFieldDependencies?;
+    PublicActionDefinitionPatchInputFieldDependencies[] inputFieldDependencies?;
     boolean published?;
     PublicExecutionTranslationRule[] executionRules?;
     string[] objectTypes?;
@@ -244,6 +232,8 @@ public type PublicActionDefinitionPatch record {
 public type BatchInputCallbackCompletionBatchRequest record {
     CallbackCompletionBatchRequest[] inputs;
 };
+
+public type PublicActionDefinitionPatchInputFieldDependencies PublicSingleFieldDependency|PublicConditionalSingleFieldDependency;
 
 public type Option record {
     boolean hidden;
@@ -259,12 +249,6 @@ public type OutputFieldDefinition record {
     FieldTypeDefinition typeDefinition;
 };
 
-# Represents the Queries record for the operation: get-/{appId}/{definitionId}_getById
-public type GetAppidDefinitionid_getbyidQueries record {
-    # Whether to return only results that have been archived.
-    boolean archived = false;
-};
-
 public type NextPage record {
     string link?;
     string after;
@@ -272,8 +256,14 @@ public type NextPage record {
 
 # Provides API key configurations needed when communicating with a remote HTTP endpoint.
 public type ApiKeysConfig record {|
-    # The API key used for authentication.
     string hapikey;
-    # The private app legacy key used for authentication.
-    string private\-app\-legacy;
+    string privateAppLegacy;
 |};
+
+# Represents the Queries record for the operation: get-/{appId}/{definitionId}/revisions_getPage
+public type GetAppIdDefinitionIdRevisionsGetPageQueries record {
+    # The maximum number of results to display per page
+    int:Signed32 'limit?;
+    # The paging cursor token of the last successfully read resource will be returned as the `paging.next.after` JSON property of a paged response containing more results
+    string after?;
+};
