@@ -8,5 +8,6 @@ authors = ["Ballerina"]
 keywords = ["Automation", "Actions", "Vendor/HubSpot", "Area/Productivity", "Type/Connector"]
 repository = "https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions"
 icon = "icon.png"
+
 [build-options]
 observabilityIncluded = true
