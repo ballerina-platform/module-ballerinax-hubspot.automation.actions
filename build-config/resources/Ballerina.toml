@@ -5,8 +5,9 @@ name = "hubspot.automation.actions"
 version = "@toml.version@"
 license = ["Apache-2.0"]
 authors = ["Ballerina"]
-keywords = ["automation", "actions", "ballerina", "integration", "Vendor/HubSpot", "Area/Productivity", "Type/Connector"]
+keywords = ["Automation", "Actions", "Vendor/HubSpot", "Area/CRM", "Type/Connector"]
 repository = "https://github.com/ballerina-platform/module-ballerinax-hubspot.automation.actions"
+icon = "icon.png"
 
 [build-options]
 observabilityIncluded = true
