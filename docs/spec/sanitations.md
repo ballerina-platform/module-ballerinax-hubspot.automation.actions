@@ -1,6 +1,6 @@
 _Author_:  <!-- TODO: Add author name --> \
 _Created_: <!-- TODO: Add date --> \
-_Updated_: <!-- TODO: Add date --> \
+_Updated_: 2026/06/17 \\
 _Edition_: Swan Lake
 
 # Sanitation for OpenAPI specification
@@ -9,12 +9,10 @@ This document records the sanitation done on top of the official OpenAPI specifi
 The OpenAPI specification is obtained from (TODO: Add source link).
 These changes are done in order to improve the overall usability, and as workarounds for some known language limitations.
 
-
 1. **Change the `url` property of the `servers` object**:
    - **Original**: `https://api.hubapi.com`
    - **Updated**: `https://api.hubapi.com/automation/v4/actions`
    - **Reason**: This change is made to ensure that all API paths are relative to the URL (`/automation/v4/actions`), which improves the consistency and usability of the APIs.
-
 
 2. **Update API Paths**:
    - **Original**: Paths shared a common segment across all resource endpoints.

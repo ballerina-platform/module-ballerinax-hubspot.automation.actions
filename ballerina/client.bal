@@ -38,6 +38,7 @@ public isolated client class Client {
 
     # Completes a single callback
     #
+    # + callbackId - Unique identifier of the callback to complete.
     # + headers - Headers to be sent with the request 
     # + return - No content 
     resource isolated function post callbacks/[string callbackId]/complete(CallbackCompletionRequest payload, map<string|string[]> headers = {}) returns error? {
@@ -72,6 +73,7 @@ public isolated client class Client {
 
     # Get paged extension definitions
     #
+    # + appId - The integer ID of the app whose action definitions are retrieved.
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
     # + return - successful operation 
@@ -87,6 +89,7 @@ public isolated client class Client {
 
     # Create a new extension definition
     #
+    # + appId - The integer ID of the app for which a new action definition is created.
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function post [int:Signed32 appId](PublicActionDefinitionEgg payload, map<string|string[]> headers = {}) returns PublicActionDefinition|error {
@@ -102,8 +105,10 @@ public isolated client class Client {
         return self.clientEp->post(resourcePath, request, headers);
     }
 
-    # Get all functions for a given definition
+    # List functions for a definition
     #
+    # + definitionId - The unique ID of the action definition whose functions are listed.
+    # + appId - The integer ID of the app owning the action definition.
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function get [int:Signed32 appId]/[string definitionId]/functions(map<string|string[]> headers = {}) returns CollectionResponsePublicActionFunctionIdentifierNoPaging|error {
@@ -116,8 +121,11 @@ public isolated client class Client {
         return self.clientEp->get(resourcePath, headers);
     }
 
-    # Get all functions by a type for a given definition
+    # List functions by type
     #
+    # + definitionId - The unique ID of the action definition to retrieve the function from.
+    # + functionType - The function type to retrieve. Allowed: PRE_ACTION_EXECUTION, PRE_FETCH_OPTIONS, POST_FETCH_OPTIONS, POST_ACTION_EXECUTION.
+    # + appId - The integer ID of the app associated with the action definition.
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function get [int:Signed32 appId]/[string definitionId]/functions/["PRE_ACTION_EXECUTION"|"PRE_FETCH_OPTIONS"|"POST_FETCH_OPTIONS"|"POST_ACTION_EXECUTION" functionType](map<string|string[]> headers = {}) returns PublicActionFunction|error {
@@ -132,6 +140,9 @@ public isolated client class Client {
 
     # Insert a function for a definition
     #
+    # + definitionId - The unique ID of the action definition to create or replace the function on.
+    # + functionType - The function type to create or replace. Allowed: PRE_ACTION_EXECUTION, PRE_FETCH_OPTIONS, POST_FETCH_OPTIONS, POST_ACTION_EXECUTION.
+    # + appId - The unique identifier of the app to associate with the function type.
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function put [int:Signed32 appId]/[string definitionId]/functions/["PRE_ACTION_EXECUTION"|"PRE_FETCH_OPTIONS"|"POST_FETCH_OPTIONS"|"POST_ACTION_EXECUTION" functionType](string payload, map<string|string[]> headers = {}) returns PublicActionFunctionIdentifier|error {
@@ -148,6 +159,9 @@ public isolated client class Client {
 
     # Delete a function for a definition
     #
+    # + definitionId - The unique identifier of the action definition whose function type will be archived.
+    # + functionType - The function type to archive. Allowed values: PRE_ACTION_EXECUTION, PRE_FETCH_OPTIONS, POST_FETCH_OPTIONS, POST_ACTION_EXECUTION.
+    # + appId - The unique identifier of the app whose function type will be archived.
     # + headers - Headers to be sent with the request 
     # + return - No content 
     resource isolated function delete [int:Signed32 appId]/[string definitionId]/functions/["PRE_ACTION_EXECUTION"|"PRE_FETCH_OPTIONS"|"POST_FETCH_OPTIONS"|"POST_ACTION_EXECUTION" functionType](map<string|string[]> headers = {}) returns error? {
@@ -160,8 +174,11 @@ public isolated client class Client {
         return self.clientEp->delete(resourcePath, headers = headers);
     }
 
-    # Gets a revision for a given definition by revision id
+    # Get a definition revision by ID
     #
+    # + definitionId - The unique identifier of the action definition whose revision will be retrieved.
+    # + revisionId - The unique identifier of the revision to retrieve.
+    # + appId - The unique identifier of the app associated with the definition revision.
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function get [int:Signed32 appId]/[string definitionId]/revisions/[string revisionId](map<string|string[]> headers = {}) returns PublicActionRevision|error {
@@ -176,6 +193,8 @@ public isolated client class Client {
 
     # Get extension definition by Id
     #
+    # + definitionId - The unique identifier of the action definition to retrieve.
+    # + appId - The unique identifier of the app associated with the action definition.
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
     # + return - successful operation 
@@ -191,6 +210,8 @@ public isolated client class Client {
 
     # Archive an extension definition
     #
+    # + definitionId - The unique identifier of the action definition to archive.
+    # + appId - The unique identifier of the app whose action definition will be archived.
     # + headers - Headers to be sent with the request 
     # + return - No content 
     resource isolated function delete [int:Signed32 appId]/[string definitionId](map<string|string[]> headers = {}) returns error? {
@@ -203,8 +224,10 @@ public isolated client class Client {
         return self.clientEp->delete(resourcePath, headers = headers);
     }
 
-    # Patch an existing extension definition
+    # Patch an extension definition
     #
+    # + definitionId - The unique identifier of the action definition to update.
+    # + appId - The unique identifier of the app associated with the action definition to update.
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function patch [int:Signed32 appId]/[string definitionId](PublicActionDefinitionPatch payload, map<string|string[]> headers = {}) returns PublicActionDefinition|error {
@@ -222,6 +245,10 @@ public isolated client class Client {
 
     # Get a function for a given definition
     #
+    # + definitionId - The unique identifier of the action definition containing the target function.
+    # + functionType - The function type to retrieve. Allowed values: PRE_ACTION_EXECUTION, PRE_FETCH_OPTIONS, POST_FETCH_OPTIONS, POST_ACTION_EXECUTION.
+    # + functionId - The unique identifier of the function to retrieve.
+    # + appId - The unique identifier of the app associated with the function to retrieve.
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function get [int:Signed32 appId]/[string definitionId]/functions/["PRE_ACTION_EXECUTION"|"PRE_FETCH_OPTIONS"|"POST_FETCH_OPTIONS"|"POST_ACTION_EXECUTION" functionType]/[string functionId](map<string|string[]> headers = {}) returns PublicActionFunction|error {
@@ -236,6 +263,10 @@ public isolated client class Client {
 
     # Insert a function for a definition
     #
+    # + definitionId - The unique identifier of the action definition for the function to create or replace.
+    # + functionType - The function type to create or replace. Allowed values: PRE_ACTION_EXECUTION, PRE_FETCH_OPTIONS, POST_FETCH_OPTIONS, POST_ACTION_EXECUTION.
+    # + functionId - The unique identifier of the function to create or replace.
+    # + appId - The unique numeric identifier of the app owning the definition.
     # + headers - Headers to be sent with the request 
     # + return - successful operation 
     resource isolated function put [int:Signed32 appId]/[string definitionId]/functions/["PRE_ACTION_EXECUTION"|"PRE_FETCH_OPTIONS"|"POST_FETCH_OPTIONS"|"POST_ACTION_EXECUTION" functionType]/[string functionId](string payload, map<string|string[]> headers = {}) returns PublicActionFunctionIdentifier|error {
@@ -252,6 +283,10 @@ public isolated client class Client {
 
     # Archive a function for a definition
     #
+    # + definitionId - The unique identifier of the extension definition containing the function.
+    # + functionType - The execution stage of the function. Must be one of: PRE_ACTION_EXECUTION, PRE_FETCH_OPTIONS, POST_FETCH_OPTIONS, POST_ACTION_EXECUTION.
+    # + functionId - The unique identifier of the function to delete.
+    # + appId - The unique numeric identifier of the app owning the definition.
     # + headers - Headers to be sent with the request 
     # + return - No content 
     resource isolated function delete [int:Signed32 appId]/[string definitionId]/functions/["PRE_ACTION_EXECUTION"|"PRE_FETCH_OPTIONS"|"POST_FETCH_OPTIONS"|"POST_ACTION_EXECUTION" functionType]/[string functionId](map<string|string[]> headers = {}) returns error? {
@@ -264,8 +299,10 @@ public isolated client class Client {
         return self.clientEp->delete(resourcePath, headers = headers);
     }
 
-    # Get all revisions for a given definition
+    # List all definition revisions
     #
+    # + definitionId - The unique identifier of the extension definition whose revisions are retrieved.
+    # + appId - The unique numeric identifier of the app owning the definition.
     # + headers - Headers to be sent with the request 
     # + queries - Queries to be sent with the request 
     # + return - successful operation 
